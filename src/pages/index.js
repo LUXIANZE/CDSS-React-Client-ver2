@@ -1,0 +1,10 @@
+export { default as CliniciansManagementPage } from "./cliniciansManagementPage";
+export { default as DashboardPage } from "./dashboardPage";
+export { default as DecisionPage } from "./decisionPage";
+export { default as DecisionSupportPage } from "./decisionSupportPage";
+export { default as DecisionTreeManagementPage } from "./decisionTreeManagementPage";
+export { default as LoginPage } from "./loginPage";
+export { default as ManagementPage } from "./managementPage";
+export { default as PatientDetailsPage } from "./patientDetailsPage";
+export { default as PatientsManagementPage } from "./patientsManagementPage";
+export { default as NotFoundPage } from "./notFoundPage";
