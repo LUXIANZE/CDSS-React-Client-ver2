@@ -1,13 +1,12 @@
 import React from "react";
 
-import { Navbar } from "../../components";
+import Layout from "../../layout";
 
 const DecisionPage = () => {
   return (
-    <div>
+    <Layout>
       <h1>Decision Page</h1>
-      <Navbar />
-    </div>
+    </Layout>
   );
 };
 

@@ -1,12 +1,9 @@
 import React from "react";
 
-import { Navbar } from "../../components";
-
 const NotFoundPage = () => {
   return (
-    <div>
+    <div style={{ height: "100%", width: "100%" }}>
       <h1>Not Found Page</h1>
-      <Navbar />
     </div>
   );
 };
