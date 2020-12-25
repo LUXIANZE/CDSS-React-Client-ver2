@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: 300,
     backgroundColor: "#B6E4E7",
+    padding: 0,
     boxShadow: "7px 4px 17px -4px rgba(0,0,0,0.75)",
     height: "100%",
   },
