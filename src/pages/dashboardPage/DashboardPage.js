@@ -1,12 +1,23 @@
 import React from "react";
+import { makeStyles } from "@material-ui/styles";
 
-import { Navbar } from "../../components";
 import Layout from "../../layout";
 
+const useStyles = makeStyles({
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    flexGrow: 1,
+    backgroundColor: "red",
+  },
+});
+
 const DashboardPage = () => {
+  const classes = useStyles();
+
   return (
-    <Layout>
-      <h1>Dashboard Page</h1>
+    <Layout title="Dashboard Page">
+      <div className={classes.container}></div>
     </Layout>
   );
 };

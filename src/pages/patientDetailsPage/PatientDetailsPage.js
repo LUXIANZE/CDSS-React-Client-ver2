@@ -1,11 +1,23 @@
 import React from "react";
+import { makeStyles } from "@material-ui/styles";
 
 import Layout from "../../layout";
 
+const useStyles = makeStyles({
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    flexGrow: 1,
+    backgroundColor: "red",
+  },
+});
+
 const PatientDetailsPage = () => {
+  const classes = useStyles();
+
   return (
-    <Layout>
-      <h1>Patient Details Page</h1>
+    <Layout title="Patient Details Page">
+      <div className={classes.container}></div>
     </Layout>
   );
 };

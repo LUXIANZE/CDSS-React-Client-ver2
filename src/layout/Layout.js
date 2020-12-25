@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     height: "100%",
   },
   container: {
-    height: "calc(100% - 64px)",
+    height: "calc(100% - 110px)",
     display: "flex",
   },
 });

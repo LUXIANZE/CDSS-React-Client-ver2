@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     margin: 0,
   },
   appbarcontainerStyle: {
-    height: "64px",
+    height: "110px",
   },
 });
 
