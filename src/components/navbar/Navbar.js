@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 300,
     backgroundColor: "#B6E4E7",
     padding: 0,
-    boxShadow: "7px 4px 17px -4px rgba(0,0,0,0.75)",
+    boxShadow: "5px 14px 17px 10px rgba(0,0,0,0.25)",
     height: "100%",
   },
   nested: {
