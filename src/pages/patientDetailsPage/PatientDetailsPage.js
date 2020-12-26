@@ -4,9 +4,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 
 import Layout from "../../layout";
 import { AppContext } from "../../context";
+import { Form } from "../../components";
 
 const useStyles = makeStyles({
   container: {
@@ -14,6 +16,11 @@ const useStyles = makeStyles({
     flexDirection: "row",
     flexGrow: 1,
     padding: 50,
+  },
+  formContent: {
+    display: "grid",
+    gridTemplateColumns: "auto auto",
+    gridGap: 10,
   },
 });
 function TabPanel(props) {
@@ -64,9 +71,16 @@ const PatientDetailsPage = () => {
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
-            {context.selectedPatient
-              ? context.selectedPatient.firstPage
-              : "No patient"}
+            {context.selectedPatient ? (
+              <Form title="PATIENT DEMOGRAPHICS" showDocumentBtn={true}>
+                <div className={classes.formContent}>
+                  <Typography>Info 1</Typography>
+                  <Typography>Result 1</Typography>
+                </div>
+              </Form>
+            ) : (
+              "No patient"
+            )}
           </TabPanel>
           <TabPanel value={value} index={1}>
             {context.selectedPatient
