@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -10,6 +10,8 @@ import SendIcon from "@material-ui/icons/Send";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import StarBorder from "@material-ui/icons/StarBorder";
+
+import { AppContext } from "../../context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,16 +31,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = () => {
+  const context = useContext(AppContext);
   const classes = useStyles();
-  const [openDecisionSupport, setOpenDecisionSupport] = useState(false);
-  const [openManagement, setOpenManagement] = useState(false);
 
   const onDecisionSupportClicked = () => {
-    setOpenDecisionSupport(!openDecisionSupport);
+    context.toggleDecision(!context.decisionOpened);
   };
 
   const onManagementClicked = () => {
-    setOpenManagement(!openManagement);
+    context.toggleManagement(!context.managementOpened);
   };
 
   return (
@@ -59,9 +60,9 @@ const Navbar = () => {
           <SendIcon />
         </ListItemIcon>
         <ListItemText primary="Management" />
-        {openManagement ? <ExpandLess /> : <ExpandMore />}
+        {context.managementOpened ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={openManagement} timeout="auto" unmountOnExit>
+      <Collapse in={context.managementOpened} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem
             button
@@ -104,9 +105,9 @@ const Navbar = () => {
           <SendIcon />
         </ListItemIcon>
         <ListItemText primary="Decision Support" />
-        {openDecisionSupport ? <ExpandLess /> : <ExpandMore />}
+        {context.decisionOpened ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={openDecisionSupport} timeout="auto" unmountOnExit>
+      <Collapse in={context.decisionOpened} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem
             button
