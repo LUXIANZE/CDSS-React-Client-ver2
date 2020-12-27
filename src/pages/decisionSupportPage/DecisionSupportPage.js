@@ -146,15 +146,15 @@ const DecisionSupportPage = () => {
               </TableHead>
               <TableBody>
                 {returnedPatient ? (
-                  returnedPatient.map((row, index) => (
+                  returnedPatient.map((patient, index) => (
                     <TableRow key={index + 1} onClick={patientClicked}>
                       <TableCell component="th" scope="row">
                         {index + 1}
                       </TableCell>
-                      <TableCell align="center">{row.name}</TableCell>
-                      <TableCell align="center">{row.name}</TableCell>
-                      <TableCell align="center">{row.ic}</TableCell>
-                      <TableCell align="center">{row.mRNNumber}</TableCell>
+                      <TableCell align="center">{patient.name}</TableCell>
+                      <TableCell align="center">{patient.name}</TableCell>
+                      <TableCell align="center">{patient.ic}</TableCell>
+                      <TableCell align="center">{patient.mRNNumber}</TableCell>
                     </TableRow>
                   ))
                 ) : (
