@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -113,6 +113,18 @@ const Navbar = () => {
             button
             className={classes.nested}
             component={Link}
+            to="/decisionsupportpage"
+          >
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Select Patient" />
+          </ListItem>
+          <ListItem
+            button
+            disabled={!context.selectedPatient}
+            className={classes.nested}
+            component={Link}
             to="/patientdetailspage"
           >
             <ListItemIcon>
@@ -122,6 +134,7 @@ const Navbar = () => {
           </ListItem>
           <ListItem
             button
+            disabled={!context.selectedPatient}
             className={classes.nested}
             component={Link}
             to="/decisionpage"
