@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -12,9 +12,29 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { gql, useLazyQuery } from "@apollo/client";
 
 import Layout from "../../layout";
 import { AppContext } from "../../context";
+
+const GET_PATIENT = gql`
+  query Patient($MRNNumber: String!) {
+    patient(MRNNumber: $MRNNumber) {
+      id
+      mRNNumber
+      name
+      ic
+      histologyReport {
+        polypType
+        sizeOfLargestPolyp
+      }
+      patientDemographics {
+        mRNNumber
+        bMI
+      }
+    }
+  }
+`;
 
 const useStyles = makeStyles({
   container: {
@@ -35,27 +55,35 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("1", 159, 6.0, 24, 4.0),
-  createData("2", 237, 9.0, 37, 4.3),
-  createData("3", 262, 16.0, 24, 6.0),
-  createData("4", 305, 3.7, 67, 4.3),
-  createData("5", 356, 16.0, 49, 3.9),
-];
-
 const DecisionSupportPage = () => {
   const context = useContext(AppContext);
   const classes = useStyles();
-  const selectPatientClicked = () => {
-    context.selectPatient({});
-  };
+  const [returnedPatient, setReturnedPatient] = useState(null);
+  const [patientMRNNumber, setPatientMRNNumber] = useState("");
+  const [searchpatient, { loading, data }] = useLazyQuery(GET_PATIENT, {
+    variables: { MRNNumber: patientMRNNumber },
+  });
+
   const patientClicked = () => {
-    console.log("clicked");
+    context.selectPatient(returnedPatient[0]);
   };
+
+  const onSearchClicked = () => {
+    setReturnedPatient(null);
+    searchpatient();
+  };
+
+  const mRNChangedHandler = (event) => {
+    setPatientMRNNumber(event.target.value);
+  };
+
+  if (loading) {
+  }
+  if (data) {
+    const { patient } = data;
+    if (!returnedPatient) setReturnedPatient([patient]);
+  }
+
   return (
     <Layout title="Decision Support Page">
       <div className={classes.container}>
@@ -91,9 +119,13 @@ const DecisionSupportPage = () => {
             </CardContent>
           </Card>
           <div className={classes.input}>
-            <TextField variant="outlined" style={{ flexGrow: 4 }}></TextField>
+            <TextField
+              variant="outlined"
+              style={{ flexGrow: 4 }}
+              onChange={mRNChangedHandler}
+            ></TextField>
             <Button
-              onClick={selectPatientClicked}
+              onClick={onSearchClicked}
               style={{ flexGrow: 1, marginLeft: 10 }}
               variant="contained"
             >
@@ -113,16 +145,16 @@ const DecisionSupportPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows ? (
-                  rows.map((row) => (
-                    <TableRow key={row.name} onClick={patientClicked}>
+                {returnedPatient ? (
+                  returnedPatient.map((row, index) => (
+                    <TableRow key={index + 1} onClick={patientClicked}>
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {index + 1}
                       </TableCell>
-                      <TableCell align="center">{row.calories}</TableCell>
-                      <TableCell align="center">{row.fat}</TableCell>
-                      <TableCell align="center">{row.carbs}</TableCell>
-                      <TableCell align="center">{row.protein}</TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
+                      <TableCell align="center">{row.ic}</TableCell>
+                      <TableCell align="center">{row.mRNNumber}</TableCell>
                     </TableRow>
                   ))
                 ) : (
