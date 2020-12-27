@@ -45,7 +45,7 @@ const theme = createMuiTheme({
 });
 
 const Form = (props) => {
-  const { title, showDocumentBtn } = props;
+  const { title, showDocumentBtn, showEditBtn } = props;
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -67,15 +67,17 @@ const Form = (props) => {
         <div
           style={{ display: "flex", flexDirection: "column", paddingLeft: 10 }}
         >
-          <ThemeProvider theme={theme}>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ alignSelf: "flex-end" }}
-            >
-              Edit
-            </Button>
-          </ThemeProvider>
+          {showEditBtn && (
+            <ThemeProvider theme={theme}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ alignSelf: "flex-end" }}
+              >
+                Edit
+              </Button>
+            </ThemeProvider>
+          )}
         </div>
       </div>
       <div className={classes.formBodyStyle}>

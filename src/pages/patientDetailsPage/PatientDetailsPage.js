@@ -104,7 +104,7 @@ const PatientDetailsPage = () => {
           <TabPanel value={value} index={0}>
             {context.selectedPatient ? (
               <>
-                <Form title="PATIENT DEMOGRAPHICS">
+                <Form title="PATIENT DEMOGRAPHICS" showEditBtn={true}>
                   <div className={classes.formContent}>
                     <Typography>MRN Number</Typography>
                     <Typography>Result 1</Typography>
@@ -118,7 +118,7 @@ const PatientDetailsPage = () => {
                     <Typography>Result 1</Typography>
                   </div>
                 </Form>
-                <Form title="PAST MEDICAL HISTORY">
+                <Form title="PAST MEDICAL HISTORY" showEditBtn={true}>
                   <div className={classes.formContent}>
                     <Typography>HYPERTENSION</Typography>
                     <Typography>Result 1</Typography>
@@ -136,7 +136,7 @@ const PatientDetailsPage = () => {
                     <Typography>Result 1</Typography>
                   </div>
                 </Form>
-                <Form title="SOCIAL AND FAMILY HISTORY">
+                <Form title="SOCIAL AND FAMILY HISTORY" showEditBtn={true}>
                   <div className={classes.formContent}>
                     <Typography>MOKER</Typography>
                     <Typography>Result 1</Typography>
@@ -146,7 +146,7 @@ const PatientDetailsPage = () => {
                     <Typography>Result 1</Typography>
                   </div>
                 </Form>
-                <Form title="COLONOSCOPY HISTORY">
+                <Form title="COLONOSCOPY HISTORY" showEditBtn={true}>
                   <div className={classes.formContent}>
                     <Typography>
                       EXCLUDING THE INDEX COLONOSCOPY, HAS THE PATIENT HAD PRIOR
@@ -179,6 +179,7 @@ const PatientDetailsPage = () => {
               <Form
                 title="FINDINGS DURING INDEX COLONOSCOPY"
                 showDocumentBtn={true}
+                showEditBtn={true}
               >
                 <div className={classes.formContent}>
                   <Typography>Date of indx colonoscopy</Typography>
@@ -205,7 +206,11 @@ const PatientDetailsPage = () => {
           </TabPanel>
           <TabPanel value={value} index={2}>
             {context.selectedPatient ? (
-              <Form title="PATIENT DEMOGRAPHICS" showDocumentBtn={true}>
+              <Form
+                title="PATIENT DEMOGRAPHICS"
+                showDocumentBtn={true}
+                showEditBtn={true}
+              >
                 <div className={classes.formContent}>
                   <Typography>Polyp type</Typography>
                   <Typography>Result 1</Typography>
