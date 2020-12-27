@@ -8,7 +8,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     flexGrow: 1,
-    backgroundColor: "red",
   },
 });
 
