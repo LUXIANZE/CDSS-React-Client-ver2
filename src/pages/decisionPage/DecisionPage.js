@@ -4,7 +4,6 @@ import {
   MuiThemeProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
-import { palette } from "@material-ui/system";
 import grey from "@material-ui/core/colors/grey";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
