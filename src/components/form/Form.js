@@ -12,6 +12,7 @@ const useStyles = makeStyles({
   container: {
     display: "flex",
     flexDirection: "column",
+    margin: "30px 0px",
   },
   formHeaderStyle: {
     display: "flex",
@@ -36,6 +37,9 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: grey[50],
+    },
+    secondary: {
+      main: "#25C8C8",
     },
   },
 });
