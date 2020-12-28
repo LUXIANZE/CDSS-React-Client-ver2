@@ -17,6 +17,7 @@ import Layout from "../../layout";
 import { AppContext } from "../../context";
 import { Form } from "../../components";
 import { Button } from "@material-ui/core";
+import { UpdatePatientDemographics } from "./components";
 
 const useStyles = makeStyles({
   container: {
@@ -59,6 +60,15 @@ const custom_theme = createMuiTheme({
 });
 
 const PatientDetailsPage = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const history = useHistory();
   const context = useContext(AppContext);
   const classes = useStyles();
@@ -106,7 +116,11 @@ const PatientDetailsPage = () => {
           <TabPanel value={value} index={0}>
             {context.selectedPatient ? (
               <>
-                <Form title="PATIENT DEMOGRAPHICS" showEditBtn={true}>
+                <Form
+                  title="PATIENT DEMOGRAPHICS"
+                  showEditBtn={true}
+                  editBtnHandler={handleClickOpen}
+                >
                   <div className={classes.formContent}>
                     <Typography>MRN Number</Typography>
                     <Typography>
@@ -938,6 +952,7 @@ const PatientDetailsPage = () => {
           </div>
         </div>
       </div>
+      <UpdatePatientDemographics open={open} handleClose={handleClose} />
     </Layout>
   );
 };

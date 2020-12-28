@@ -45,7 +45,13 @@ const theme = createMuiTheme({
 });
 
 const Form = (props) => {
-  const { title, showDocumentBtn, showEditBtn } = props;
+  const {
+    title,
+    showDocumentBtn,
+    showEditBtn,
+    documentBtnHandler,
+    editBtnHandler,
+  } = props;
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -73,6 +79,7 @@ const Form = (props) => {
                 variant="contained"
                 color="primary"
                 style={{ alignSelf: "flex-end" }}
+                onClick={editBtnHandler && editBtnHandler}
               >
                 Edit
               </Button>
