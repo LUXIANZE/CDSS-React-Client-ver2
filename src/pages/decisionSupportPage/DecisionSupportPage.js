@@ -13,6 +13,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { gql, useLazyQuery } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
 import Layout from "../../layout";
 import { AppContext } from "../../context";
@@ -56,6 +57,7 @@ const useStyles = makeStyles({
 });
 
 const DecisionSupportPage = () => {
+  const history = useHistory();
   const context = useContext(AppContext);
   const classes = useStyles();
   const [returnedPatient, setReturnedPatient] = useState(null);
@@ -66,6 +68,7 @@ const DecisionSupportPage = () => {
 
   const patientClicked = () => {
     context.selectPatient(returnedPatient[0]);
+    history.push("/patientdetailspage");
   };
 
   const onSearchClicked = () => {
