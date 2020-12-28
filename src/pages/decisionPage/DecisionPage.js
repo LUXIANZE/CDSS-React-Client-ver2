@@ -196,8 +196,14 @@ const DecisionPage = () => {
                 height: 100,
               }}
             >
-              <Typography>Result</Typography>
-              <Typography>{result}</Typography>
+              <TextField
+                id="outlined-multiline-static"
+                label="Result"
+                multiline
+                rows={2}
+                variant="outlined"
+                value={result}
+              />
             </div>
             <div style={{ display: "flex" }}>
               <MuiThemeProvider theme={custom_theme}>
