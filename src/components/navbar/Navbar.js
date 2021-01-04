@@ -79,17 +79,6 @@ const Navbar = () => {
             button
             className={classes.nested}
             component={Link}
-            to="/cliniciansmanagement"
-          >
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Clinicians Management" />
-          </ListItem>
-          <ListItem
-            button
-            className={classes.nested}
-            component={Link}
             to="/patientsmanagement"
           >
             <ListItemIcon>
