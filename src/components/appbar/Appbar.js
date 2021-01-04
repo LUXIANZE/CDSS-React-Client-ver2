@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
+import { Button, Typography } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+
+import { AppContext } from "../../context";
 
 const useStyles = makeStyles({
   titleStyle: {
@@ -18,13 +22,53 @@ const useStyles = makeStyles({
 });
 
 const Appbar = (props) => {
+  const { user, logout } = useContext(AppContext);
+  const history = useHistory();
   const classes = useStyles();
   const { title } = props;
 
+  const handleLogout = () => {
+    logout();
+  };
+  if (!user) {
+    history.replace("/login");
+  }
   return (
-    <div className={classes.appbarcontainerStyle}>
-      <h1 className={classes.titleStyle}>{title}</h1>
-    </div>
+    <>
+      {user && (
+        <div className={classes.appbarcontainerStyle}>
+          <div style={{ flexGrow: 1, display: "flex" }}>
+            <Typography
+              variant="h4"
+              component="h1"
+              className={classes.titleStyle}
+            >
+              {user.name}
+            </Typography>
+          </div>
+
+          <div
+            style={{
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "row-reverse",
+            }}
+          >
+            <Button
+              style={{
+                backgroundColor: "#FFFFFF",
+                alignSelf: "center",
+                padding: "14px 34px",
+                margin: 15,
+              }}
+              onClick={logout}
+            >
+              Logout
+            </Button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

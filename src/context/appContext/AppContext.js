@@ -1,4 +1,5 @@
 import React, { useReducer, createContext } from "react";
+import jwtDecode from "jwt-decode";
 
 const initialState = {
   user: null,
@@ -6,6 +7,16 @@ const initialState = {
   managementOpened: false,
   decisionOpened: false,
 };
+
+if (localStorage.getItem("jwtToken")) {
+  const decodedToken = jwtDecode(localStorage.getItem("jwtToken"));
+
+  if (decodedToken.exp * 1000 < Date.now()) {
+    localStorage.removeItem("jwtToken");
+  } else {
+    // initialState.user = decodedToken;
+  }
+}
 
 const AppContext = createContext({
   user: null,
@@ -55,18 +66,16 @@ function AppProvider(props) {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   function login(userData) {
-    // TODO: login logic
-    // localStorage.setItem("jwtToken", userData.token);
-    // dispatch({
-    //   type: "LOGIN",
-    //   payload: userData,
-    // });
+    localStorage.setItem("jwtToken", userData.token);
+    dispatch({
+      type: "LOGIN",
+      payload: userData,
+    });
   }
 
   function logout() {
-    // TODO: logout logic
-    // localStorage.removeItem("jwtToken");
-    // dispatch({ type: "LOGOUT" });
+    localStorage.removeItem("jwtToken");
+    dispatch({ type: "LOGOUT" });
   }
 
   function selectPatient(selectedPatient) {

@@ -57,7 +57,7 @@ const DecisionPage = () => {
   const [highGradeDysplasia, setHighGradeDysplasia] = useState(false);
   const [answer, setAnswer] = useState([]);
 
-  const [acquireDecision, { loading, data }] = useMutation(ACQUIRE_DECISION, {
+  const [acquireDecision, { data }] = useMutation(ACQUIRE_DECISION, {
     variables: { answer: answer },
   });
 
