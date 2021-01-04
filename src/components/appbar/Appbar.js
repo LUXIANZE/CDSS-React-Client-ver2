@@ -61,7 +61,7 @@ const Appbar = (props) => {
                 padding: "14px 34px",
                 margin: 15,
               }}
-              onClick={logout}
+              onClick={handleLogout}
             >
               Logout
             </Button>

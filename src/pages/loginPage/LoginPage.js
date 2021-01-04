@@ -11,6 +11,18 @@ import { Button } from "@material-ui/core";
 const LOGIN = gql`
   mutation Login($staffId: String!, $password: String!) {
     login(staffId: $staffId, password: $password) {
+      staffId
+      token
+      name
+      role
+    }
+  }
+`;
+
+const SIGNUP = gql`
+  mutation addClinician($registerInput: RegisterInput) {
+    addClinician(registerInput: $registerInput) {
+      staffId
       token
       name
       role
@@ -46,10 +58,30 @@ const LoginPage = () => {
   const [isSingup, setIsSignup] = useState(false);
   const [signInInputStaffId, setSignInInputStaffId] = useState("");
   const [signInInputPassword, setSignInInputPassword] = useState("");
+  const [signUpInputStaffId, setSignUpInputStaffId] = useState("");
+  const [signUpInputName, setSignUpInputName] = useState("");
+  const [signUpInputPassword, setSignUpInputPassword] = useState("");
+  const [signUpInputConfirmPassword, setSignUpInputConfirmPassword] = useState(
+    ""
+  );
   const [gqlLogin, { data: loginData, error: loginError }] = useMutation(
     LOGIN,
     {
       variables: { staffId: signInInputStaffId, password: signInInputPassword },
+    }
+  );
+
+  const [gqlSignup, { data: signupData, error: signupError }] = useMutation(
+    SIGNUP,
+    {
+      variables: {
+        registerInput: {
+          name: signUpInputName,
+          staffId: signUpInputStaffId,
+          password: signUpInputPassword,
+          confirmPassword: signUpInputConfirmPassword,
+        },
+      },
     }
   );
 
@@ -58,6 +90,17 @@ const LoginPage = () => {
       alert(e);
     });
   };
+
+  const handleSignUpClicked = () => {
+    if (signUpInputPassword === signUpInputConfirmPassword) {
+      gqlSignup().catch((e) => {
+        alert(e);
+      });
+    } else {
+      alert("Password and confirm password not the same");
+    }
+  };
+
   const handleSignInStaffIdChange = (event) => {
     setSignInInputStaffId(event.target.value);
   };
@@ -66,15 +109,39 @@ const LoginPage = () => {
     setSignInInputPassword(event.target.value);
   };
 
+  const handleSignUpNameChange = (event) => {
+    setSignUpInputName(event.target.value);
+  };
+
+  const handleSignUpStaffIdChange = (event) => {
+    setSignUpInputStaffId(event.target.value);
+  };
+
+  const handleSignUpPasswordChange = (event) => {
+    setSignUpInputPassword(event.target.value);
+  };
+
+  const handleSignUpConfirmPasswordChange = (event) => {
+    setSignUpInputConfirmPassword(event.target.value);
+  };
+
   if (loginData) {
     const { login: clinician } = loginData;
     if (!user) {
-      console.log(clinician);
+      login(clinician);
+    }
+  }
+  if (signupData) {
+    const { addClinician: clinician } = signupData;
+    if (!user) {
       login(clinician);
     }
   }
   if (loginError) {
     console.log(loginError);
+  }
+  if (signupError) {
+    console.log(signupError);
   }
 
   if (user) history.replace("/dashboard");
@@ -98,13 +165,32 @@ const LoginPage = () => {
                   raised
                 >
                   <TextField
-                    label="Staff ID"
+                    label="Name"
                     variant="filled"
                     style={{ flexGrow: 1 }}
+                    value={signUpInputName}
+                    onChange={handleSignUpNameChange}
                   ></TextField>
                 </Card>
 
                 <span style={{ height: 20 }} />
+
+                <Card
+                  backgroundColor="#FFFFFF"
+                  style={{ display: "flex" }}
+                  raised
+                >
+                  <TextField
+                    label="Staff ID"
+                    variant="filled"
+                    style={{ flexGrow: 1 }}
+                    value={signUpInputStaffId}
+                    onChange={handleSignUpStaffIdChange}
+                  ></TextField>
+                </Card>
+
+                <span style={{ height: 20 }} />
+
                 <Card
                   backgroundColor="#FFFFFF"
                   style={{ display: "flex" }}
@@ -114,6 +200,8 @@ const LoginPage = () => {
                     label="Password"
                     variant="filled"
                     style={{ flexGrow: 1 }}
+                    value={signUpInputPassword}
+                    onChange={handleSignUpPasswordChange}
                   ></TextField>
                 </Card>
 
@@ -127,6 +215,8 @@ const LoginPage = () => {
                     label="Confirm Password"
                     variant="filled"
                     style={{ flexGrow: 1 }}
+                    value={signUpInputConfirmPassword}
+                    onChange={handleSignUpConfirmPasswordChange}
                   ></TextField>
                 </Card>
                 <span style={{ height: 20 }} />
@@ -137,7 +227,7 @@ const LoginPage = () => {
                       color: "#2C5B59",
                       padding: "14px 34px",
                     }}
-                    onClick={() => setIsSignup(true)}
+                    onClick={handleSignUpClicked}
                   >
                     SIGN UP
                   </Button>
