@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -6,40 +6,81 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
+import { useMutation } from "@apollo/client";
 
 import { AppContext } from "../../../../context";
+import { UPDATE_PATIENT } from "../../../../utils/graphql/UpdatePatient";
+import { PatientVariableConverter } from "../../../../utils/converter";
 
 const UpdatePatientDemographics = (props) => {
   const context = useContext(AppContext);
+  const [updatedPatient, setUpdatedPatient] = useState(
+    PatientVariableConverter(context.selectedPatient)
+  );
   const [inputMRNNumber, setInputMRNNumber] = useState(
-    context.selectedPatient.mRNNumber ? context.selectedPatient.mRNNumber : ""
+    context.selectedPatient.patientDemographics.mRNNumber
+      ? context.selectedPatient.patientDemographics.mRNNumber
+      : ""
   );
   const [inputDateOfBirth, setInputDateOfBirth] = useState(
-    context.selectedPatient.dateOfBirth
-      ? context.selectedPatient.dateOfBirth
+    context.selectedPatient.patientDemographics.dateOfBirth
+      ? context.selectedPatient.patientDemographics.dateOfBirth
       : ""
   );
   const [inputGender, setInputGender] = useState(
-    context.selectedPatient.gender ? context.selectedPatient.gender : ""
+    context.selectedPatient.patientDemographics.gender
+      ? context.selectedPatient.patientDemographics.gender
+      : ""
   );
   const [inputRace, setInputRace] = useState(
-    context.selectedPatient.race ? context.selectedPatient.race : ""
+    context.selectedPatient.patientDemographics.race
+      ? context.selectedPatient.patientDemographics.race
+      : ""
   );
   const [inputBMI, setInputBMI] = useState(
-    context.selectedPatient.bMI ? context.selectedPatient.bMI : ""
+    context.selectedPatient.patientDemographics.bMI
+      ? context.selectedPatient.patientDemographics.bMI
+      : ""
   );
   const { open, handleClose } = props;
+  const [updatePatientMutation, { data, error }] = useMutation(UPDATE_PATIENT, {
+    variables: { UpdatePatientInput: updatedPatient },
+  });
+
+  useEffect(() => {
+    let temp_updatedPatient = PatientVariableConverter(context.selectedPatient);
+    temp_updatedPatient.patientDemographics.mRNNumber = inputMRNNumber;
+    temp_updatedPatient.patientDemographics.gender = inputGender;
+    temp_updatedPatient.patientDemographics.dateOfBirth = inputDateOfBirth;
+    temp_updatedPatient.patientDemographics.race = inputRace;
+    temp_updatedPatient.patientDemographics.bMI = inputBMI;
+    const formatted_variables = PatientVariableConverter(temp_updatedPatient);
+
+    setUpdatedPatient(formatted_variables);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputMRNNumber, inputGender, inputDateOfBirth, inputRace, inputBMI]);
 
   const handleSave = () => {
-    const updatedPatient = { ...context.selectedPatient };
-    updatedPatient.mRNNumber = inputMRNNumber;
-    updatedPatient.gender = inputGender;
-    updatedPatient.dateOfBirth = inputDateOfBirth;
-    updatedPatient.race = inputRace;
-    updatedPatient.bMI = inputBMI;
-    context.selectPatient(updatedPatient);
+    updatePatientMutation().catch((e) => {
+      console.log(e);
+    });
+    setUpdatedPatient(null);
     handleClose();
   };
+
+  if (error) {
+    console.log(error);
+  }
+
+  if (data) {
+    const { updatePatient } = data;
+    console.log(data);
+    if (!updatedPatient) {
+      context.selectPatient(updatePatient);
+      setUpdatedPatient(PatientVariableConverter(updatePatient));
+    }
+  }
+
   return (
     <Dialog
       open={open}

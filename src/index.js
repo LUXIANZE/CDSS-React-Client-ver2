@@ -2,13 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client";
 
-const client = new ApolloClient({
-  uri: "http://192.168.1.51:4000/graphql",
-  cache: new InMemoryCache(),
-});
+import client from "./utils/graphql/GraphqlClient";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -124,32 +124,33 @@ const PatientDetailsPage = () => {
                   <div className={classes.formContent}>
                     <Typography>MRN Number</Typography>
                     <Typography>
-                      {context.selectedPatient.mRNNumber
-                        ? context.selectedPatient.mRNNumber
+                      {context.selectedPatient.patientDemographics.mRNNumber
+                        ? context.selectedPatient.patientDemographics.mRNNumber
                         : "N/A"}
                     </Typography>
                     <Typography>Date of Birth</Typography>
                     <Typography>
-                      {context.selectedPatient.dateOfBirth
-                        ? context.selectedPatient.dateOfBirth
+                      {context.selectedPatient.patientDemographics.dateOfBirth
+                        ? context.selectedPatient.patientDemographics
+                            .dateOfBirth
                         : "N/A"}
                     </Typography>
                     <Typography>Gender</Typography>
                     <Typography>
-                      {context.selectedPatient.gender
-                        ? context.selectedPatient.gender
+                      {context.selectedPatient.patientDemographics.gender
+                        ? context.selectedPatient.patientDemographics.gender
                         : "N/A"}
                     </Typography>
                     <Typography>Race</Typography>
                     <Typography>
-                      {context.selectedPatient.race
-                        ? context.selectedPatient.race
+                      {context.selectedPatient.patientDemographics.race
+                        ? context.selectedPatient.patientDemographics.race
                         : "N/A"}
                     </Typography>
                     <Typography>Body Mass Index</Typography>
                     <Typography>
-                      {context.selectedPatient.bMI
-                        ? context.selectedPatient.bMI
+                      {context.selectedPatient.patientDemographics.bMI
+                        ? context.selectedPatient.patientDemographics.bMI
                         : "N/A"}
                     </Typography>
                   </div>

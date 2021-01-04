@@ -22,16 +22,50 @@ const GET_PATIENT = gql`
   query Patient($MRNNumber: String!) {
     patient(MRNNumber: $MRNNumber) {
       id
+      ic
       mRNNumber
       name
-      ic
+      patientDemographics {
+        mRNNumber
+        dateOfBirth
+        gender
+        race
+        bMI
+      }
+      pastMedicalHistory {
+        hypertension
+        ischaemicHeartDisease
+        heartFailure
+        cvaOrStroke
+        copd
+        iddm
+        niddm
+      }
+      socialAndFamilyHistory {
+        isSmoker
+        alcoholConsumption
+        familyCRCHistory
+      }
+      colonoscopyHistory {
+        priorColonoscopy
+        noOfPriorColonoscopy
+        isNormal
+        abnormalities
+      }
+      endoscopyReport {
+        date
+        qualityOfPreparation
+        locationOfPolyps
+        noOfPolyps
+        sizeOfLargestPolyp
+        polypectomyComplete
+        piecemalResection
+      }
       histologyReport {
         polypType
         sizeOfLargestPolyp
-      }
-      patientDemographics {
-        mRNNumber
-        bMI
+        villousArchitecture
+        highGradeDysplasia
       }
     }
   }
