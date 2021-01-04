@@ -74,7 +74,6 @@ const UpdatePatientDemographics = (props) => {
 
   if (data) {
     const { updatePatient } = data;
-    console.log(data);
     if (!updatedPatient) {
       context.selectPatient(updatePatient);
       setUpdatedPatient(PatientVariableConverter(updatePatient));
