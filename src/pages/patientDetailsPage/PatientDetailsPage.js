@@ -160,56 +160,61 @@ const PatientDetailsPage = () => {
                     <Typography>HYPERTENSION</Typography>
                     <Checkbox
                       checked={
-                        context.selectedPatient.hypertension
-                          ? context.selectedPatient.hypertension
+                        context.selectedPatient.pastMedicalHistory.hypertension
+                          ? context.selectedPatient.pastMedicalHistory
+                              .hypertension
                           : false
                       }
                     />
                     <Typography>ISCHAEMIC HEART DISEASE</Typography>
                     <Checkbox
                       checked={
-                        context.selectedPatient.ischaemicHeartDisease
-                          ? context.selectedPatient.ischaemicHeartDisease
+                        context.selectedPatient.pastMedicalHistory
+                          .ischaemicHeartDisease
+                          ? context.selectedPatient.pastMedicalHistory
+                              .ischaemicHeartDisease
                           : false
                       }
                     />
                     <Typography>HEART FAILURE</Typography>
                     <Checkbox
                       checked={
-                        context.selectedPatient.heartFailure
-                          ? context.selectedPatient.heartFailure
+                        context.selectedPatient.pastMedicalHistory.heartFailure
+                          ? context.selectedPatient.pastMedicalHistory
+                              .heartFailure
                           : false
                       }
                     />
                     <Typography>CVA/STROKE</Typography>
                     <Checkbox
                       checked={
-                        context.selectedPatient.cvaOrStroke
-                          ? context.selectedPatient.cvaOrStroke
+                        context.selectedPatient.pastMedicalHistory.cvaOrStroke
+                          ? context.selectedPatient.pastMedicalHistory
+                              .cvaOrStroke
                           : false
                       }
                     />
                     <Typography>COPD</Typography>
                     <Checkbox
                       checked={
-                        context.selectedPatient.copd
-                          ? context.selectedPatient.copd
+                        context.selectedPatient.pastMedicalHistory.copd
+                          ? context.selectedPatient.pastMedicalHistory.copd
                           : false
                       }
                     />
                     <Typography>IDDM</Typography>
                     <Checkbox
                       checked={
-                        context.selectedPatient.iddm
-                          ? context.selectedPatient.iddm
+                        context.selectedPatient.pastMedicalHistory.iddm
+                          ? context.selectedPatient.pastMedicalHistory.iddm
                           : false
                       }
                     />
                     <Typography>NIDDM</Typography>
                     <Checkbox
                       checked={
-                        context.selectedPatient.niddm
-                          ? context.selectedPatient.niddm
+                        context.selectedPatient.pastMedicalHistory.niddm
+                          ? context.selectedPatient.pastMedicalHistory.niddm
                           : false
                       }
                     />
@@ -223,8 +228,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .isSmoker
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .isSmoker
                                 : false
                             }
                           />
@@ -235,8 +242,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .isSmoker
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .isSmoker
                                 : false
                             }
                           />
@@ -247,8 +256,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .isSmoker
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .isSmoker
                                 : false
                             }
                           />
@@ -259,8 +270,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .isSmoker
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .isSmoker
                                 : false
                             }
                           />
@@ -274,8 +287,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .alcoholConsumption
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .alcoholConsumption
                                 : false
                             }
                           />
@@ -286,8 +301,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .alcoholConsumption
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .alcoholConsumption
                                 : false
                             }
                           />
@@ -298,8 +315,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .alcoholConsumption
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .alcoholConsumption
                                 : false
                             }
                           />
@@ -310,8 +329,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .alcoholConsumption
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .alcoholConsumption
                                 : false
                             }
                           />
@@ -325,8 +346,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .familyCRCHistory
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .familyCRCHistory
                                 : false
                             }
                           />
@@ -337,8 +360,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .familyCRCHistory
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .familyCRCHistory
                                 : false
                             }
                           />
@@ -349,8 +374,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.socialAndFamilyHistory
+                                .familyCRCHistory
+                                ? context.selectedPatient.socialAndFamilyHistory
+                                    .familyCRCHistory
                                 : false
                             }
                           />
@@ -369,16 +396,20 @@ const PatientDetailsPage = () => {
                     <div style={{ display: "flex" }}>
                       <Checkbox
                         checked={
-                          context.selectedPatient.priorColonoscopy
-                            ? context.selectedPatient.priorColonoscopy
+                          context.selectedPatient.colonoscopyHistory
+                            .priorColonoscopy
+                            ? context.selectedPatient.colonoscopyHistory
+                                .priorColonoscopy
                             : false
                         }
                       />
                     </div>
                     <Typography>NUMBER OF PRIOR COLONOSCOPIES</Typography>
                     <Typography>
-                      {context.selectedPatient.noOfPriorColonoscopy
-                        ? context.selectedPatient.noOfPriorColonoscopy
+                      {context.selectedPatient.colonoscopyHistory
+                        .noOfPriorColonoscopy
+                        ? context.selectedPatient.colonoscopyHistory
+                            .noOfPriorColonoscopy
                         : "N/A"}
                     </Typography>
                     <Typography>WERE PRIOR COLONOSCOPY NORMAL?</Typography>
@@ -387,8 +418,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .isNormal
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .isNormal
                                 : false
                             }
                           />
@@ -399,8 +432,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .isNormal
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .isNormal
                                 : false
                             }
                           />
@@ -411,8 +446,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .isNormal
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .isNormal
                                 : false
                             }
                           />
@@ -428,8 +465,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .abnormalities
                                 : false
                             }
                           />
@@ -440,8 +479,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .abnormalities
                                 : false
                             }
                           />
@@ -452,8 +493,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .abnormalities
                                 : false
                             }
                           />
@@ -464,8 +507,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .abnormalities
                                 : false
                             }
                           />
@@ -476,8 +521,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .abnormalities
                                 : false
                             }
                           />
@@ -488,8 +535,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .abnormalities
                                 : false
                             }
                           />
@@ -500,8 +549,10 @@ const PatientDetailsPage = () => {
                         control={
                           <Checkbox
                             checked={
-                              context.selectedPatient.isSmoker
-                                ? context.selectedPatient.isSmoker
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory
+                                    .abnormalities
                                 : false
                             }
                           />
@@ -526,8 +577,8 @@ const PatientDetailsPage = () => {
                 <div className={classes.formContent}>
                   <Typography>Date of index colonoscopy</Typography>
                   <Typography>
-                    {context.selectedPatient.date
-                      ? context.selectedPatient.date
+                    {context.selectedPatient.endoscopyReport.date
+                      ? context.selectedPatient.endoscopyReport.date
                       : "N/A"}
                   </Typography>
                   <Typography>Quality of bowel preparation</Typography>
@@ -536,8 +587,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -548,8 +599,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -560,8 +611,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -572,8 +623,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -584,8 +635,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -596,8 +647,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -611,8 +662,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -623,8 +674,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -635,8 +686,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -647,8 +698,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -659,8 +710,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -671,8 +722,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -686,8 +737,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -698,8 +749,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -710,8 +761,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -722,8 +773,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -737,8 +788,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -749,8 +800,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -764,8 +815,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -776,8 +827,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -793,8 +844,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -805,8 +856,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.endoscopyReport.isSmoker
+                              ? context.selectedPatient.endoscopyReport.isSmoker
                               : false
                           }
                         />
@@ -834,8 +885,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.histologyReport.isSmoker
+                              ? context.selectedPatient.histologyReport.isSmoker
                               : false
                           }
                         />
@@ -846,8 +897,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.histologyReport.isSmoker
+                              ? context.selectedPatient.histologyReport.isSmoker
                               : false
                           }
                         />
@@ -858,8 +909,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.histologyReport.isSmoker
+                              ? context.selectedPatient.histologyReport.isSmoker
                               : false
                           }
                         />
@@ -875,8 +926,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.histologyReport.isSmoker
+                              ? context.selectedPatient.histologyReport.isSmoker
                               : false
                           }
                         />
@@ -887,8 +938,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.histologyReport.isSmoker
+                              ? context.selectedPatient.histologyReport.isSmoker
                               : false
                           }
                         />
@@ -902,8 +953,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.histologyReport.isSmoker
+                              ? context.selectedPatient.histologyReport.isSmoker
                               : false
                           }
                         />
@@ -914,8 +965,8 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.isSmoker
-                              ? context.selectedPatient.isSmoker
+                            context.selectedPatient.histologyReport.isSmoker
+                              ? context.selectedPatient.histologyReport.isSmoker
                               : false
                           }
                         />
