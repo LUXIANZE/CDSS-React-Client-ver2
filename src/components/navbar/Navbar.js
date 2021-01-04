@@ -75,7 +75,7 @@ const Navbar = () => {
             </ListItemIcon>
             <ListItemText primary="Decision Tree Management" />
           </ListItem>
-          <ListItem
+          {/* <ListItem
             button
             className={classes.nested}
             component={Link}
@@ -85,7 +85,7 @@ const Navbar = () => {
               <StarBorder />
             </ListItemIcon>
             <ListItemText primary="Patients Management" />
-          </ListItem>
+          </ListItem> */}
         </List>
       </Collapse>
 
