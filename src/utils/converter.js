@@ -26,7 +26,9 @@ export const PatientVariableConverter = (input) => {
     },
     colonoscopyHistory: {
       priorColonoscopy: input.colonoscopyHistory.priorColonoscopy,
-      noOfPriorColonoscopy: input.colonoscopyHistory.noOfPriorColonoscopy,
+      noOfPriorColonoscopy: parseInt(
+        input.colonoscopyHistory.noOfPriorColonoscopy
+      ),
       isNormal: input.colonoscopyHistory.isNormal,
       abnormalities: input.colonoscopyHistory.abnormalities,
     },

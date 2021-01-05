@@ -352,12 +352,113 @@ const PatientDetailsPage = () => {
                     <Typography>
                       ABNORMALITIES IN PRIOR COLONOSCOPIES
                     </Typography>
-                    <Typography>
-                      {context.selectedPatient.colonoscopyHistory.abnormalities
-                        ? context.selectedPatient.colonoscopyHistory
-                            .abnormalities
-                        : "N/A"}
-                    </Typography>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory.abnormalities.includes(
+                                    "ADENOMATOUS_POLYPS"
+                                  )
+                                : false
+                            }
+                          />
+                        }
+                        label="ADENOMATOUS POLYPS"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory.abnormalities.includes(
+                                    "SERRATED_POLYPS"
+                                  )
+                                : false
+                            }
+                          />
+                        }
+                        label="SERRATED POLYPS"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory.abnormalities.includes(
+                                    "MALIGNANT_POLYPS"
+                                  )
+                                : false
+                            }
+                          />
+                        }
+                        label="MALIGNANT POLYPS"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory.abnormalities.includes(
+                                    "COLORECTAL_CANCER"
+                                  )
+                                : false
+                            }
+                          />
+                        }
+                        label="COLORECTAL CANCER"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory.abnormalities.includes(
+                                    "INFLAMMATORY_BOWEL_DISEASE"
+                                  )
+                                : false
+                            }
+                          />
+                        }
+                        label="INFLAMMATORY BOWEL DISEASE"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory.abnormalities.includes(
+                                    "DIVERTICULAR_DISEASE"
+                                  )
+                                : false
+                            }
+                          />
+                        }
+                        label="DIVERTICULAR DISEASE"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={
+                              context.selectedPatient.colonoscopyHistory
+                                .abnormalities
+                                ? context.selectedPatient.colonoscopyHistory.abnormalities.includes(
+                                    "OTHER"
+                                  )
+                                : false
+                            }
+                          />
+                        }
+                        label="OTHER"
+                      />
+                    </div>
                   </div>
                 </Form>
               </>
