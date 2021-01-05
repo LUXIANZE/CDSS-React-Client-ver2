@@ -482,88 +482,24 @@ const PatientDetailsPage = () => {
                       : "N/A"}
                   </Typography>
                   <Typography>Quality of bowel preparation</Typography>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Excellent: Small volume of liquid; > 95% of mucosa seen"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Good: Clear liquid covering 5%-25% of mucosa, but > 90% mucosa seen"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Fair: Semisolid stool not suctioned/washed away, but > 90% mucosa seen"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Poor: Semisolid stool not suctioned/washed away and < 90% mucosa seen"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Inadequate: Repeat preparation/investigation needed"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Not stated in report"
-                    />
-                  </div>
+                  <Typography>
+                    {context.selectedPatient.endoscopyReport
+                      .qualityOfPreparation
+                      ? context.selectedPatient.endoscopyReport
+                          .qualityOfPreparation
+                      : "N/A"}
+                  </Typography>
                   <Typography>Location of polyp/s</Typography>
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <FormControlLabel
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
+                            context.selectedPatient.endoscopyReport
+                              .locationOfPolyps
+                              ? context.selectedPatient.endoscopyReport.locationOfPolyps.includes(
+                                  "CAECUM"
+                                )
                               : false
                           }
                         />
@@ -574,8 +510,11 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
+                            context.selectedPatient.endoscopyReport
+                              .locationOfPolyps
+                              ? context.selectedPatient.endoscopyReport.locationOfPolyps.includes(
+                                  "ASCENDING_COLON"
+                                )
                               : false
                           }
                         />
@@ -586,8 +525,11 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
+                            context.selectedPatient.endoscopyReport
+                              .locationOfPolyps
+                              ? context.selectedPatient.endoscopyReport.locationOfPolyps.includes(
+                                  "TRANSVERSE_COLON"
+                                )
                               : false
                           }
                         />
@@ -598,8 +540,11 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
+                            context.selectedPatient.endoscopyReport
+                              .locationOfPolyps
+                              ? context.selectedPatient.endoscopyReport.locationOfPolyps.includes(
+                                  "DESCENDING_COLON"
+                                )
                               : false
                           }
                         />
@@ -610,8 +555,11 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
+                            context.selectedPatient.endoscopyReport
+                              .locationOfPolyps
+                              ? context.selectedPatient.endoscopyReport.locationOfPolyps.includes(
+                                  "SIGMOID_COLON"
+                                )
                               : false
                           }
                         />
@@ -622,8 +570,11 @@ const PatientDetailsPage = () => {
                       control={
                         <Checkbox
                           checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
+                            context.selectedPatient.endoscopyReport
+                              .locationOfPolyps
+                              ? context.selectedPatient.endoscopyReport.locationOfPolyps.includes(
+                                  "RECTUM"
+                                )
                               : false
                           }
                         />
@@ -632,137 +583,43 @@ const PatientDetailsPage = () => {
                     />
                   </div>
                   <Typography>Number of polypsdetected</Typography>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="< =2"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="3-4"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="5-10"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label=">10"
-                    />
-                  </div>
+                  <Typography>
+                    {context.selectedPatient.endoscopyReport.noOfPolyps
+                      ? context.selectedPatient.endoscopyReport.noOfPolyps
+                      : "N/A"}
+                  </Typography>
                   <Typography>Size of the largest polyp /mm</Typography>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="< 10"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label=">=10"
-                    />
-                  </div>
+                  <Typography>
+                    {context.selectedPatient.endoscopyReport.sizeOfLargestPolyp
+                      ? context.selectedPatient.endoscopyReport
+                          .sizeOfLargestPolyp
+                      : "N/A"}
+                  </Typography>
                   <Typography>Was the polypectomy complete?</Typography>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
+                  <div>
+                    <Checkbox
+                      checked={
+                        context.selectedPatient.endoscopyReport
+                          .polypectomyComplete
+                          ? context.selectedPatient.endoscopyReport
+                              .polypectomyComplete
+                          : false
                       }
-                      label="Yes"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="No"
                     />
                   </div>
+
                   <Typography>
                     Was the polyp &gt;20mm and had piecemeal section?
                   </Typography>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
+                  <div>
+                    <Checkbox
+                      checked={
+                        context.selectedPatient.endoscopyReport
+                          .piecemalResection
+                          ? context.selectedPatient.endoscopyReport
+                              .piecemalResection
+                          : false
                       }
-                      label="Yes"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.endoscopyReport.isSmoker
-                              ? context.selectedPatient.endoscopyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="No"
                     />
                   </div>
                 </div>
