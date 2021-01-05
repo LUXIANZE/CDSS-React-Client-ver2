@@ -4,8 +4,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import TextField from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 import { useMutation } from "@apollo/client";
 
 import { AppContext } from "../../../../context";
@@ -17,31 +22,23 @@ const UpdateSocialAndFamilyHistory = (props) => {
   const [updatedPatient, setUpdatedPatient] = useState(
     PatientVariableConverter(context.selectedPatient)
   );
-  const [inputMRNNumber, setInputMRNNumber] = useState(
-    context.selectedPatient.patientDemographics.mRNNumber
-      ? context.selectedPatient.patientDemographics.mRNNumber
+
+  const [inputIsSmoker, setInputIsSmoker] = useState(
+    context.selectedPatient.socialAndFamilyHistory.isSmoker
+      ? context.selectedPatient.socialAndFamilyHistory.isSmoker
       : ""
   );
-  const [inputDateOfBirth, setInputDateOfBirth] = useState(
-    context.selectedPatient.patientDemographics.dateOfBirth
-      ? context.selectedPatient.patientDemographics.dateOfBirth
+  const [inputAlcoholConsumption, setInputAlcoholConsumption] = useState(
+    context.selectedPatient.socialAndFamilyHistory.alcoholConsumption
+      ? context.selectedPatient.socialAndFamilyHistory.alcoholConsumption
       : ""
   );
-  const [inputGender, setInputGender] = useState(
-    context.selectedPatient.patientDemographics.gender
-      ? context.selectedPatient.patientDemographics.gender
+  const [inputFamilyCRCHistory, setInputFamilyCRCHistory] = useState(
+    context.selectedPatient.socialAndFamilyHistory.familyCRCHistory
+      ? context.selectedPatient.socialAndFamilyHistory.familyCRCHistory
       : ""
   );
-  const [inputRace, setInputRace] = useState(
-    context.selectedPatient.patientDemographics.race
-      ? context.selectedPatient.patientDemographics.race
-      : ""
-  );
-  const [inputBMI, setInputBMI] = useState(
-    context.selectedPatient.patientDemographics.bMI
-      ? context.selectedPatient.patientDemographics.bMI
-      : ""
-  );
+
   const { open, handleClose } = props;
   const [updatePatientMutation, { data, error }] = useMutation(UPDATE_PATIENT, {
     variables: { UpdatePatientInput: updatedPatient },
@@ -49,16 +46,14 @@ const UpdateSocialAndFamilyHistory = (props) => {
 
   useEffect(() => {
     let temp_updatedPatient = PatientVariableConverter(context.selectedPatient);
-    temp_updatedPatient.patientDemographics.mRNNumber = inputMRNNumber;
-    temp_updatedPatient.patientDemographics.gender = inputGender;
-    temp_updatedPatient.patientDemographics.dateOfBirth = inputDateOfBirth;
-    temp_updatedPatient.patientDemographics.race = inputRace;
-    temp_updatedPatient.patientDemographics.bMI = inputBMI;
+    temp_updatedPatient.socialAndFamilyHistory.isSmoker = inputIsSmoker;
+    temp_updatedPatient.socialAndFamilyHistory.alcoholConsumption = inputAlcoholConsumption;
+    temp_updatedPatient.socialAndFamilyHistory.familyCRCHistory = inputFamilyCRCHistory;
     const formatted_variables = PatientVariableConverter(temp_updatedPatient);
 
     setUpdatedPatient(formatted_variables);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputMRNNumber, inputGender, inputDateOfBirth, inputRace, inputBMI]);
+  }, [inputIsSmoker, inputAlcoholConsumption, inputFamilyCRCHistory]);
 
   const handleSave = () => {
     updatePatientMutation().catch((e) => {
@@ -89,56 +84,78 @@ const UpdateSocialAndFamilyHistory = (props) => {
       <DialogTitle id="form-dialog-title">Update info</DialogTitle>
       <DialogContent>
         <DialogContentText>Patient Demographics</DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          label="MRNNumber"
-          fullWidth
-          value={inputMRNNumber}
-          onChange={(event) => {
-            setInputMRNNumber(event.target.value);
-          }}
-        />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Date of Birth"
-          fullWidth
-          value={inputDateOfBirth}
-          onChange={(event) => {
-            setInputDateOfBirth(event.target.value);
-          }}
-        />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Gender"
-          fullWidth
-          value={inputGender}
-          onChange={(event) => {
-            setInputGender(event.target.value);
-          }}
-        />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Race"
-          fullWidth
-          value={inputRace}
-          onChange={(event) => {
-            setInputRace(event.target.value);
-          }}
-        />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="BMI"
-          fullWidth
-          value={inputBMI}
-          onChange={(event) => {
-            setInputBMI(event.target.value);
-          }}
-        />
+        <FormControl
+          variant="outlined"
+          style={{ minWidth: 300, width: "100%", margin: 10 }}
+        >
+          <InputLabel id="demo-simple-select-outlined-label">Smoker</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={inputIsSmoker}
+            onChange={(event) => {
+              setInputIsSmoker(event.target.value);
+            }}
+            label="Smoker"
+          >
+            <MenuItem value={null}>
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value="Yes">Yes</MenuItem>
+            <MenuItem value="No">No</MenuItem>
+            <MenuItem value="Current">Current</MenuItem>
+            <MenuItem value="Unknown">Unknown</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl
+          variant="outlined"
+          style={{ minWidth: 300, width: "100%", margin: 10 }}
+        >
+          <InputLabel id="demo-simple-select-outlined-label">
+            Alcohol Consumption
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={inputAlcoholConsumption}
+            onChange={(event) => {
+              setInputAlcoholConsumption(event.target.value);
+            }}
+            label="Alcohol Consumption"
+          >
+            <MenuItem value={null}>
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value="Regular">Regular</MenuItem>
+            <MenuItem value="Infrequent">Infrequent</MenuItem>
+            <MenuItem value="Tee-total">Tee-total</MenuItem>
+            <MenuItem value="Unknown">Unknown</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl
+          variant="outlined"
+          style={{ minWidth: 300, width: "100%", margin: 10 }}
+        >
+          <InputLabel id="demo-simple-select-outlined-label">
+            Family History of CRC
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={inputFamilyCRCHistory}
+            onChange={(event) => {
+              setInputFamilyCRCHistory(event.target.value);
+            }}
+            label="Family History of CRC"
+          >
+            <MenuItem value={null}>
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value="Yes">Yes</MenuItem>
+            <MenuItem value="No">No</MenuItem>
+            <MenuItem value="Unknown">Unknown</MenuItem>
+          </Select>
+        </FormControl>
       </DialogContent>
       <DialogActions>
         <Button

@@ -290,168 +290,28 @@ const PatientDetailsPage = () => {
                 >
                   <div className={classes.formContent}>
                     <Typography>SMOKER</Typography>
-                    <div style={{ display: "flex" }}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .isSmoker
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .isSmoker
-                                : false
-                            }
-                          />
-                        }
-                        label="Never"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .isSmoker
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .isSmoker
-                                : false
-                            }
-                          />
-                        }
-                        label="FORMER"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .isSmoker
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .isSmoker
-                                : false
-                            }
-                          />
-                        }
-                        label="CURRENT"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .isSmoker
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .isSmoker
-                                : false
-                            }
-                          />
-                        }
-                        label="UNKNOWN"
-                      />
-                    </div>
+                    <Typography>
+                      {context.selectedPatient.socialAndFamilyHistory.isSmoker
+                        ? context.selectedPatient.socialAndFamilyHistory
+                            .isSmoker
+                        : ""}
+                    </Typography>
                     <Typography>ALCOHOL CONSUMPTION</Typography>
-                    <div style={{ display: "flex" }}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .alcoholConsumption
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .alcoholConsumption
-                                : false
-                            }
-                          />
-                        }
-                        label="REGULAR"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .alcoholConsumption
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .alcoholConsumption
-                                : false
-                            }
-                          />
-                        }
-                        label="INFREQUENT"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .alcoholConsumption
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .alcoholConsumption
-                                : false
-                            }
-                          />
-                        }
-                        label="TEE-TOTAL"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .alcoholConsumption
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .alcoholConsumption
-                                : false
-                            }
-                          />
-                        }
-                        label="UNKNOWN"
-                      />
-                    </div>
+                    <Typography>
+                      {context.selectedPatient.socialAndFamilyHistory
+                        .alcoholConsumption
+                        ? context.selectedPatient.socialAndFamilyHistory
+                            .alcoholConsumption
+                        : ""}
+                    </Typography>
                     <Typography>FAMILY HISTORY OF CRC</Typography>
-                    <div style={{ display: "flex" }}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .familyCRCHistory
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .familyCRCHistory
-                                : false
-                            }
-                          />
-                        }
-                        label="YES"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .familyCRCHistory
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .familyCRCHistory
-                                : false
-                            }
-                          />
-                        }
-                        label="NO"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.socialAndFamilyHistory
-                                .familyCRCHistory
-                                ? context.selectedPatient.socialAndFamilyHistory
-                                    .familyCRCHistory
-                                : false
-                            }
-                          />
-                        }
-                        label="UNKNOWN"
-                      />
-                    </div>
+                    <Typography>
+                      {context.selectedPatient.socialAndFamilyHistory
+                        .familyCRCHistory
+                        ? context.selectedPatient.socialAndFamilyHistory
+                            .familyCRCHistory
+                        : ""}
+                    </Typography>
                   </div>
                 </Form>
                 <Form
@@ -484,153 +344,20 @@ const PatientDetailsPage = () => {
                         : "N/A"}
                     </Typography>
                     <Typography>WERE PRIOR COLONOSCOPY NORMAL?</Typography>
-                    <div style={{ display: "flex" }}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .isNormal
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .isNormal
-                                : false
-                            }
-                          />
-                        }
-                        label="YES"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .isNormal
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .isNormal
-                                : false
-                            }
-                          />
-                        }
-                        label="NO"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .isNormal
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .isNormal
-                                : false
-                            }
-                          />
-                        }
-                        label="UNKNOWN"
-                      />
-                    </div>
+                    <Typography>
+                      {context.selectedPatient.colonoscopyHistory.isNormal
+                        ? context.selectedPatient.colonoscopyHistory.isNormal
+                        : "N/A"}
+                    </Typography>
                     <Typography>
                       ABNORMALITIES IN PRIOR COLONOSCOPIES
                     </Typography>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .abnormalities
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .abnormalities
-                                : false
-                            }
-                          />
-                        }
-                        label="ADENOMATOUS POLYPS"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .abnormalities
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .abnormalities
-                                : false
-                            }
-                          />
-                        }
-                        label="SERRATED POLYPS"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .abnormalities
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .abnormalities
-                                : false
-                            }
-                          />
-                        }
-                        label="MALIGNANT POLYPS"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .abnormalities
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .abnormalities
-                                : false
-                            }
-                          />
-                        }
-                        label="COLORECTAL CANCER"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .abnormalities
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .abnormalities
-                                : false
-                            }
-                          />
-                        }
-                        label="INFLAMMATORY BOWEL DISEASE"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .abnormalities
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .abnormalities
-                                : false
-                            }
-                          />
-                        }
-                        label="DIVERTICULAR DISEASE"
-                      />
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              context.selectedPatient.colonoscopyHistory
-                                .abnormalities
-                                ? context.selectedPatient.colonoscopyHistory
-                                    .abnormalities
-                                : false
-                            }
-                          />
-                        }
-                        label="OTHER"
-                      />
-                    </div>
+                    <Typography>
+                      {context.selectedPatient.colonoscopyHistory.abnormalities
+                        ? context.selectedPatient.colonoscopyHistory
+                            .abnormalities
+                        : "N/A"}
+                    </Typography>
                   </div>
                 </Form>
               </>
