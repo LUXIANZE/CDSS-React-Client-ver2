@@ -5,7 +5,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 import { useMutation } from "@apollo/client";
 
 import { AppContext } from "../../../../context";
@@ -17,31 +25,28 @@ const UpdateHistologyReport = (props) => {
   const [updatedPatient, setUpdatedPatient] = useState(
     PatientVariableConverter(context.selectedPatient)
   );
-  const [inputMRNNumber, setInputMRNNumber] = useState(
-    context.selectedPatient.patientDemographics.mRNNumber
-      ? context.selectedPatient.patientDemographics.mRNNumber
+
+  const [inputPolypType, setInputPolypType] = useState(
+    context.selectedPatient.histologyReport.polypType
+      ? context.selectedPatient.histologyReport.polypType
       : ""
   );
-  const [inputDateOfBirth, setInputDateOfBirth] = useState(
-    context.selectedPatient.patientDemographics.dateOfBirth
-      ? context.selectedPatient.patientDemographics.dateOfBirth
-      : ""
+  const [inputSizeOfLargestPolyp, setInputSizeOfLargestPolyp] = useState(
+    context.selectedPatient.histologyReport.sizeOfLargestPolyp
+      ? context.selectedPatient.histologyReport.sizeOfLargestPolyp
+      : 0.0
   );
-  const [inputGender, setInputGender] = useState(
-    context.selectedPatient.patientDemographics.gender
-      ? context.selectedPatient.patientDemographics.gender
-      : ""
+  const [inputVillousArchitecture, setInputVillousArchitecture] = useState(
+    context.selectedPatient.histologyReport.villousArchitecture
+      ? context.selectedPatient.histologyReport.villousArchitecture
+      : false
   );
-  const [inputRace, setInputRace] = useState(
-    context.selectedPatient.patientDemographics.race
-      ? context.selectedPatient.patientDemographics.race
-      : ""
+  const [inputHighGradeDysplasia, setInputHighGradeDysplasia] = useState(
+    context.selectedPatient.histologyReport.highGradeDysplasia
+      ? context.selectedPatient.histologyReport.highGradeDysplasia
+      : false
   );
-  const [inputBMI, setInputBMI] = useState(
-    context.selectedPatient.patientDemographics.bMI
-      ? context.selectedPatient.patientDemographics.bMI
-      : ""
-  );
+
   const { open, handleClose } = props;
   const [updatePatientMutation, { data, error }] = useMutation(UPDATE_PATIENT, {
     variables: { UpdatePatientInput: updatedPatient },
@@ -49,16 +54,20 @@ const UpdateHistologyReport = (props) => {
 
   useEffect(() => {
     let temp_updatedPatient = PatientVariableConverter(context.selectedPatient);
-    temp_updatedPatient.patientDemographics.mRNNumber = inputMRNNumber;
-    temp_updatedPatient.patientDemographics.gender = inputGender;
-    temp_updatedPatient.patientDemographics.dateOfBirth = inputDateOfBirth;
-    temp_updatedPatient.patientDemographics.race = inputRace;
-    temp_updatedPatient.patientDemographics.bMI = inputBMI;
+    temp_updatedPatient.histologyReport.polypType = inputPolypType;
+    temp_updatedPatient.histologyReport.sizeOfLargestPolyp = inputSizeOfLargestPolyp;
+    temp_updatedPatient.histologyReport.villousArchitecture = inputVillousArchitecture;
+    temp_updatedPatient.histologyReport.highGradeDysplasia = inputHighGradeDysplasia;
     const formatted_variables = PatientVariableConverter(temp_updatedPatient);
 
     setUpdatedPatient(formatted_variables);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputMRNNumber, inputGender, inputDateOfBirth, inputRace, inputBMI]);
+  }, [
+    inputPolypType,
+    inputSizeOfLargestPolyp,
+    inputVillousArchitecture,
+    inputHighGradeDysplasia,
+  ]);
 
   const handleSave = () => {
     updatePatientMutation().catch((e) => {
@@ -89,55 +98,61 @@ const UpdateHistologyReport = (props) => {
       <DialogTitle id="form-dialog-title">Update info</DialogTitle>
       <DialogContent>
         <DialogContentText>Patient Demographics</DialogContentText>
+        <FormControl
+          variant="outlined"
+          style={{ minWidth: 300, width: "100%", margin: "10px 0px" }}
+        >
+          <InputLabel id="demo-simple-select-outlined-label">
+            Polyp type
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={inputPolypType}
+            onChange={(event) => {
+              setInputPolypType(event.target.value);
+            }}
+            label="Polyp type"
+          >
+            <MenuItem value={null}>
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value="Adenomatous polyp">Adenomatous polyp</MenuItem>
+            <MenuItem value="Serrated polyp">Serrated polyp</MenuItem>
+            <MenuItem value="Malignant polyp">Malignant polyp</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
-          autoFocus
-          margin="dense"
-          label="MRNNumber"
-          fullWidth
-          value={inputMRNNumber}
+          style={{ minWidth: 300, width: "100%", margin: "10px 0px" }}
+          variant="outlined"
+          type="number"
+          label="Number of prior colonoscopies"
+          value={inputSizeOfLargestPolyp}
           onChange={(event) => {
-            setInputMRNNumber(event.target.value);
+            setInputSizeOfLargestPolyp(event.target.value);
           }}
+        ></TextField>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputVillousArchitecture}
+              onChange={(event) => {
+                setInputVillousArchitecture(event.target.checked);
+              }}
+            />
+          }
+          label="Presence of VILLOUS architecture?"
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Date of Birth"
-          fullWidth
-          value={inputDateOfBirth}
-          onChange={(event) => {
-            setInputDateOfBirth(event.target.value);
-          }}
-        />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Gender"
-          fullWidth
-          value={inputGender}
-          onChange={(event) => {
-            setInputGender(event.target.value);
-          }}
-        />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Race"
-          fullWidth
-          value={inputRace}
-          onChange={(event) => {
-            setInputRace(event.target.value);
-          }}
-        />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="BMI"
-          fullWidth
-          value={inputBMI}
-          onChange={(event) => {
-            setInputBMI(event.target.value);
-          }}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputHighGradeDysplasia}
+              onChange={(event) => {
+                setInputHighGradeDysplasia(event.target.checked);
+              }}
+            />
+          }
+          label="Presence of HIGH GRADE DYSPLESIA?"
         />
       </DialogContent>
       <DialogActions>

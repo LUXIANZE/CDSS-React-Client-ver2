@@ -43,7 +43,7 @@ export const PatientVariableConverter = (input) => {
     },
     histologyReport: {
       polypType: input.histologyReport.polypType,
-      sizeOfLargestPolyp: input.histologyReport.sizeOfLargestPolyp,
+      sizeOfLargestPolyp: parseFloat(input.histologyReport.sizeOfLargestPolyp),
       villousArchitecture: input.histologyReport.villousArchitecture,
       highGradeDysplasia: input.histologyReport.highGradeDysplasia,
     },

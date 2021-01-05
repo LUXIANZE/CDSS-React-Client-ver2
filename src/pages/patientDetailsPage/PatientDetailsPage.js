@@ -631,105 +631,49 @@ const PatientDetailsPage = () => {
           <TabPanel value={value} index={2}>
             {context.selectedPatient ? (
               <Form
-                title="PATIENT DEMOGRAPHICS"
+                title="HISTOLOGY OF POLYPS FROM INDEX COLONOSCOPY"
                 showDocumentBtn={true}
                 showEditBtn={true}
                 editBtnHandler={handleOpenUpdateHistologyReport}
               >
                 <div className={classes.formContent}>
                   <Typography>Polyp type</Typography>
-                  <div style={{ display: "flex" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.histologyReport.isSmoker
-                              ? context.selectedPatient.histologyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Adenomatous polyp"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.histologyReport.isSmoker
-                              ? context.selectedPatient.histologyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Serrated polyp"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.histologyReport.isSmoker
-                              ? context.selectedPatient.histologyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="Malignant polyp"
-                    />
-                  </div>
+                  <Typography>
+                    {context.selectedPatient.histologyReport.polypType
+                      ? context.selectedPatient.histologyReport.polypType
+                      : "N/A"}
+                  </Typography>
+
                   <Typography>Size of the largest polyp /mm</Typography>
-                  <Typography>{"5"}</Typography>
+                  <Typography>
+                    {context.selectedPatient.histologyReport.sizeOfLargestPolyp
+                      ? context.selectedPatient.histologyReport
+                          .sizeOfLargestPolyp
+                      : "N/A"}
+                  </Typography>
                   <Typography>Presence of VILLOUS architecture?</Typography>
-                  <div style={{ display: "flex" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.histologyReport.isSmoker
-                              ? context.selectedPatient.histologyReport.isSmoker
-                              : false
-                          }
-                        />
+                  <div>
+                    <Checkbox
+                      checked={
+                        context.selectedPatient.histologyReport
+                          .villousArchitecture
+                          ? context.selectedPatient.histologyReport
+                              .villousArchitecture
+                          : false
                       }
-                      label="Yes"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.histologyReport.isSmoker
-                              ? context.selectedPatient.histologyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="No"
                     />
                   </div>
+
                   <Typography>Presence of HIGH GRADE DYSPLESIA?</Typography>
-                  <div style={{ display: "flex" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.histologyReport.isSmoker
-                              ? context.selectedPatient.histologyReport.isSmoker
-                              : false
-                          }
-                        />
+                  <div>
+                    <Checkbox
+                      checked={
+                        context.selectedPatient.histologyReport
+                          .highGradeDysplasia
+                          ? context.selectedPatient.histologyReport
+                              .highGradeDysplasia
+                          : false
                       }
-                      label="Yes"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={
-                            context.selectedPatient.histologyReport.isSmoker
-                              ? context.selectedPatient.histologyReport.isSmoker
-                              : false
-                          }
-                        />
-                      }
-                      label="No"
                     />
                   </div>
                 </div>
