@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import DateFnsUtils from "@date-io/date-fns";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -6,6 +7,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import { useMutation } from "@apollo/client";
 
 import { AppContext } from "../../../../context";
@@ -25,7 +30,7 @@ const UpdatePatientDemographics = (props) => {
   const [inputDateOfBirth, setInputDateOfBirth] = useState(
     context.selectedPatient.patientDemographics.dateOfBirth
       ? context.selectedPatient.patientDemographics.dateOfBirth
-      : ""
+      : new Date().toDateString()
   );
   const [inputGender, setInputGender] = useState(
     context.selectedPatient.patientDemographics.gender
@@ -99,16 +104,24 @@ const UpdatePatientDemographics = (props) => {
             setInputMRNNumber(event.target.value);
           }}
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Date of Birth"
-          fullWidth
-          value={inputDateOfBirth}
-          onChange={(event) => {
-            setInputDateOfBirth(event.target.value);
-          }}
-        />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="MM/dd/yyyy"
+            margin="normal"
+            id="date-picker-inline"
+            label="Date of Birth"
+            value={inputDateOfBirth}
+            onChange={(date) => {
+              setInputDateOfBirth(date.toDateString());
+            }}
+            KeyboardButtonProps={{
+              "aria-label": "change date",
+            }}
+          />
+        </MuiPickersUtilsProvider>
+
         <TextField
           autoFocus
           margin="dense"
