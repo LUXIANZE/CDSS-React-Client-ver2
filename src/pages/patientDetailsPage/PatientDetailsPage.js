@@ -13,7 +13,14 @@ import Layout from "../../layout";
 import { AppContext } from "../../context";
 import { Form } from "../../components";
 import { Button } from "@material-ui/core";
-import { UpdatePatientDemographics } from "./components";
+import {
+  UpdateColonoscopyHistory,
+  UpdateEndoscopyReport,
+  UpdateHistologyReport,
+  UpdatePastMedicalHistory,
+  UpdatePatientDemographics,
+  UpdateSocialAndFamilyHistory,
+} from "./components";
 
 const useStyles = makeStyles({
   container: {
@@ -48,19 +55,83 @@ function TabPanel(props) {
 }
 
 const PatientDetailsPage = () => {
-  const [open, setOpen] = useState(false);
+  const [
+    openUpdateColonoscopyHistory,
+    setOpenUpdateColonoscopyHistory,
+  ] = useState(false);
+  const [openUpdateEndoscopyReport, setOpenUpdateEndoscopyReport] = useState(
+    false
+  );
+  const [openUpdateHistologyReport, setOpenUpdateHistologyReport] = useState(
+    false
+  );
+  const [
+    openUpdatePastMedicalHistory,
+    setOpenUpdatePastMedicalHistory,
+  ] = useState(false);
+  const [
+    openUpdatePatientDemographics,
+    setOpenUpdatePatientDemographics,
+  ] = useState(false);
+  const [
+    openUpdateSocialAndFamilyHistory,
+    setOpenUpdateSocialAndFamilyHistory,
+  ] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  // Modal open handler
+  const handleOpenUpdateColonoscopyHistory = () => {
+    setOpenUpdateColonoscopyHistory(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleOpenUpdateEndoscopyReport = () => {
+    setOpenUpdateEndoscopyReport(true);
   };
+
+  const handleOpenUpdateHistologyReport = () => {
+    setOpenUpdateHistologyReport(true);
+  };
+
+  const handleOpenUpdatePastMedicalHistory = () => {
+    setOpenUpdatePastMedicalHistory(true);
+  };
+
+  const handleOpenUpdatePatientDemographics = () => {
+    setOpenUpdatePatientDemographics(true);
+  };
+
+  const handleOpenUpdateSocialAndFamilyHistory = () => {
+    setOpenUpdateSocialAndFamilyHistory(true);
+  };
+
+  // Modal close handler
+  const handleCloseUpdateColonoscopyHistory = () => {
+    setOpenUpdateColonoscopyHistory(false);
+  };
+
+  const handleCloseUpdateEndoscopyReport = () => {
+    setOpenUpdateEndoscopyReport(false);
+  };
+
+  const handleCloseUpdateHistologyReport = () => {
+    setOpenUpdateHistologyReport(false);
+  };
+
+  const handleCloseUpdatePastMedicalHistory = () => {
+    setOpenUpdatePastMedicalHistory(false);
+  };
+
+  const handleCloseUpdatePatientDemographics = () => {
+    setOpenUpdatePatientDemographics(false);
+  };
+
+  const handleCloseUpdateSocialAndFamilyHistory = () => {
+    setOpenUpdateSocialAndFamilyHistory(false);
+  };
+
   const history = useHistory();
   const context = useContext(AppContext);
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -107,7 +178,7 @@ const PatientDetailsPage = () => {
                 <Form
                   title="PATIENT DEMOGRAPHICS"
                   showEditBtn={true}
-                  editBtnHandler={handleClickOpen}
+                  editBtnHandler={handleOpenUpdatePatientDemographics}
                 >
                   <div className={classes.formContent}>
                     <Typography>MRN Number</Typography>
@@ -143,7 +214,11 @@ const PatientDetailsPage = () => {
                     </Typography>
                   </div>
                 </Form>
-                <Form title="PAST MEDICAL HISTORY" showEditBtn={true}>
+                <Form
+                  title="PAST MEDICAL HISTORY"
+                  showEditBtn={true}
+                  editBtnHandler={handleOpenUpdatePastMedicalHistory}
+                >
                   <div className={classes.formContent}>
                     <Typography>HYPERTENSION</Typography>
                     <Checkbox
@@ -208,7 +283,11 @@ const PatientDetailsPage = () => {
                     />
                   </div>
                 </Form>
-                <Form title="SOCIAL AND FAMILY HISTORY" showEditBtn={true}>
+                <Form
+                  title="SOCIAL AND FAMILY HISTORY"
+                  showEditBtn={true}
+                  editBtnHandler={handleOpenUpdateSocialAndFamilyHistory}
+                >
                   <div className={classes.formContent}>
                     <Typography>SMOKER</Typography>
                     <div style={{ display: "flex" }}>
@@ -375,7 +454,11 @@ const PatientDetailsPage = () => {
                     </div>
                   </div>
                 </Form>
-                <Form title="COLONOSCOPY HISTORY" showEditBtn={true}>
+                <Form
+                  title="COLONOSCOPY HISTORY"
+                  showEditBtn={true}
+                  editBtnHandler={handleOpenUpdateColonoscopyHistory}
+                >
                   <div className={classes.formContent}>
                     <Typography>
                       EXCLUDING THE INDEX COLONOSCOPY, HAS THE PATIENT HAD PRIOR
@@ -561,6 +644,7 @@ const PatientDetailsPage = () => {
                 title="FINDINGS DURING INDEX COLONOSCOPY"
                 showDocumentBtn={true}
                 showEditBtn={true}
+                editBtnHandler={handleOpenUpdateEndoscopyReport}
               >
                 <div className={classes.formContent}>
                   <Typography>Date of index colonoscopy</Typography>
@@ -865,6 +949,7 @@ const PatientDetailsPage = () => {
                 title="PATIENT DEMOGRAPHICS"
                 showDocumentBtn={true}
                 showEditBtn={true}
+                editBtnHandler={handleOpenUpdateHistologyReport}
               >
                 <div className={classes.formContent}>
                   <Typography>Polyp type</Typography>
@@ -998,7 +1083,30 @@ const PatientDetailsPage = () => {
           </div>
         </div>
       </div>
-      <UpdatePatientDemographics open={open} handleClose={handleClose} />
+      <UpdateColonoscopyHistory
+        open={openUpdateColonoscopyHistory}
+        handleClose={handleCloseUpdateColonoscopyHistory}
+      />
+      <UpdateEndoscopyReport
+        open={openUpdateEndoscopyReport}
+        handleClose={handleCloseUpdateEndoscopyReport}
+      />
+      <UpdateHistologyReport
+        open={openUpdateHistologyReport}
+        handleClose={handleCloseUpdateHistologyReport}
+      />
+      <UpdatePastMedicalHistory
+        open={openUpdatePastMedicalHistory}
+        handleClose={handleCloseUpdatePastMedicalHistory}
+      />
+      <UpdatePatientDemographics
+        open={openUpdatePatientDemographics}
+        handleClose={handleCloseUpdatePatientDemographics}
+      />
+      <UpdateSocialAndFamilyHistory
+        open={openUpdateSocialAndFamilyHistory}
+        handleClose={handleCloseUpdateSocialAndFamilyHistory}
+      />
     </Layout>
   );
 };
