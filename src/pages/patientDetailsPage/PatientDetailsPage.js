@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   makeStyles,
@@ -60,7 +60,7 @@ const custom_theme = createMuiTheme({
 });
 
 const PatientDetailsPage = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -983,24 +983,30 @@ const PatientDetailsPage = () => {
           <div
             style={{ display: "flex", flexDirection: "column", padding: 50 }}
           >
-            <ThemeProvider theme={custom_theme}>
-              <Button
-                variant="contained"
-                color="secondary"
-                style={{ alignSelf: "flex-start" }}
-                onClick={previousBtnHandler}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                style={{ alignSelf: "flex-end" }}
-                onClick={nextBtnHandler}
-              >
-                Next
-              </Button>
-            </ThemeProvider>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{
+                alignSelf: "flex-start",
+                backgroundColor: "#25C8C8",
+                color: "#FFFFFF",
+              }}
+              onClick={previousBtnHandler}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{
+                alignSelf: "flex-end",
+                backgroundColor: "#25C8C8",
+                color: "#FFFFFF",
+              }}
+              onClick={nextBtnHandler}
+            >
+              Next
+            </Button>
           </div>
         </div>
       </div>

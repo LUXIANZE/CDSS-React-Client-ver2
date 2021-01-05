@@ -63,7 +63,11 @@ const Form = (props) => {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ alignSelf: "flex-end" }}
+                style={{
+                  alignSelf: "flex-end",
+                  backgroundColor: "#FFFCFC",
+                  color: "#2C5B59",
+                }}
               >
                 Document
               </Button>
@@ -78,7 +82,11 @@ const Form = (props) => {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ alignSelf: "flex-end" }}
+                style={{
+                  alignSelf: "flex-end",
+                  backgroundColor: "#FFFCFC",
+                  color: "#2C5B59",
+                }}
                 onClick={editBtnHandler && editBtnHandler}
               >
                 Edit

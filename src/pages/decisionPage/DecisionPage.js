@@ -182,6 +182,7 @@ const DecisionPage = () => {
                   variant="contained"
                   color="secondary"
                   onClick={handleConfirmClicked}
+                  style={{ backgroundColor: "#25C8C8", color: "#FFFFFF" }}
                 >
                   CONFIRM
                 </Button>
@@ -210,7 +211,11 @@ const DecisionPage = () => {
                 <Button
                   variant="contained"
                   color="secondary"
-                  style={{ margin: "0px 10px" }}
+                  style={{
+                    margin: "0px 10px",
+                    backgroundColor: "#25C8C8",
+                    color: "#FFFFFF",
+                  }}
                   onClick={() => {
                     context.selectPatient(null);
                     history.push("./decisionsupportpage");
