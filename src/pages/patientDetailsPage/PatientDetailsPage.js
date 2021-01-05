@@ -1,10 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  makeStyles,
-  ThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -50,14 +46,6 @@ function TabPanel(props) {
     </div>
   );
 }
-
-const custom_theme = createMuiTheme({
-  palette: {
-    secondary: {
-      main: "#25C8C8",
-    },
-  },
-});
 
 const PatientDetailsPage = () => {
   const [open, setOpen] = useState(false);
