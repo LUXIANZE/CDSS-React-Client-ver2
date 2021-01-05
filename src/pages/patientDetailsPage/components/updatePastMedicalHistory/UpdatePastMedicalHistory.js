@@ -4,8 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import TextField from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
+import { Button, Checkbox, FormControlLabel } from "@material-ui/core";
 import { useMutation } from "@apollo/client";
 
 import { AppContext } from "../../../../context";
@@ -17,31 +16,43 @@ const UpdatePastMedicalHistory = (props) => {
   const [updatedPatient, setUpdatedPatient] = useState(
     PatientVariableConverter(context.selectedPatient)
   );
-  const [inputMRNNumber, setInputMRNNumber] = useState(
-    context.selectedPatient.patientDemographics.mRNNumber
-      ? context.selectedPatient.patientDemographics.mRNNumber
-      : ""
+
+  const [inputHypertension, setInputHypertension] = useState(
+    context.selectedPatient.pastMedicalHistory.hypertension
+      ? context.selectedPatient.pastMedicalHistory.hypertension
+      : false
   );
-  const [inputDateOfBirth, setInputDateOfBirth] = useState(
-    context.selectedPatient.patientDemographics.dateOfBirth
-      ? context.selectedPatient.patientDemographics.dateOfBirth
-      : ""
+  const [inputIschaemicHeartDisease, setInputIschaemicHeartDisease] = useState(
+    context.selectedPatient.pastMedicalHistory.ischaemicHeartDisease
+      ? context.selectedPatient.pastMedicalHistory.ischaemicHeartDisease
+      : false
   );
-  const [inputGender, setInputGender] = useState(
-    context.selectedPatient.patientDemographics.gender
-      ? context.selectedPatient.patientDemographics.gender
-      : ""
+  const [inputHeartFailure, setInputHeartFailure] = useState(
+    context.selectedPatient.pastMedicalHistory.heartFailure
+      ? context.selectedPatient.pastMedicalHistory.heartFailure
+      : false
   );
-  const [inputRace, setInputRace] = useState(
-    context.selectedPatient.patientDemographics.race
-      ? context.selectedPatient.patientDemographics.race
-      : ""
+  const [inputcvaOrStroke, setInputcvaOrStroke] = useState(
+    context.selectedPatient.pastMedicalHistory.cvaOrStroke
+      ? context.selectedPatient.pastMedicalHistory.cvaOrStroke
+      : false
   );
-  const [inputBMI, setInputBMI] = useState(
-    context.selectedPatient.patientDemographics.bMI
-      ? context.selectedPatient.patientDemographics.bMI
-      : ""
+  const [inputCopd, setInputCopd] = useState(
+    context.selectedPatient.pastMedicalHistory.copd
+      ? context.selectedPatient.pastMedicalHistory.copd
+      : false
   );
+  const [inputIddm, setInputIddm] = useState(
+    context.selectedPatient.pastMedicalHistory.iddm
+      ? context.selectedPatient.pastMedicalHistory.iddm
+      : false
+  );
+  const [inputNiddm, setInputNiddm] = useState(
+    context.selectedPatient.pastMedicalHistory.niddm
+      ? context.selectedPatient.pastMedicalHistory.niddm
+      : false
+  );
+
   const { open, handleClose } = props;
   const [updatePatientMutation, { data, error }] = useMutation(UPDATE_PATIENT, {
     variables: { UpdatePatientInput: updatedPatient },
@@ -49,16 +60,26 @@ const UpdatePastMedicalHistory = (props) => {
 
   useEffect(() => {
     let temp_updatedPatient = PatientVariableConverter(context.selectedPatient);
-    temp_updatedPatient.patientDemographics.mRNNumber = inputMRNNumber;
-    temp_updatedPatient.patientDemographics.gender = inputGender;
-    temp_updatedPatient.patientDemographics.dateOfBirth = inputDateOfBirth;
-    temp_updatedPatient.patientDemographics.race = inputRace;
-    temp_updatedPatient.patientDemographics.bMI = inputBMI;
+    temp_updatedPatient.pastMedicalHistory.hypertension = inputHypertension;
+    temp_updatedPatient.pastMedicalHistory.ischaemicHeartDisease = inputIschaemicHeartDisease;
+    temp_updatedPatient.pastMedicalHistory.heartFailure = inputHeartFailure;
+    temp_updatedPatient.pastMedicalHistory.cvaOrStroke = inputcvaOrStroke;
+    temp_updatedPatient.pastMedicalHistory.copd = inputCopd;
+    temp_updatedPatient.pastMedicalHistory.iddm = inputIddm;
+    temp_updatedPatient.pastMedicalHistory.niddm = inputNiddm;
     const formatted_variables = PatientVariableConverter(temp_updatedPatient);
 
     setUpdatedPatient(formatted_variables);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputMRNNumber, inputGender, inputDateOfBirth, inputRace, inputBMI]);
+  }, [
+    inputHypertension,
+    inputIschaemicHeartDisease,
+    inputHeartFailure,
+    inputcvaOrStroke,
+    inputCopd,
+    inputIddm,
+    inputNiddm,
+  ]);
 
   const handleSave = () => {
     updatePatientMutation().catch((e) => {
@@ -87,57 +108,91 @@ const UpdatePastMedicalHistory = (props) => {
       aria-labelledby="form-dialog-title"
     >
       <DialogTitle id="form-dialog-title">Update info</DialogTitle>
-      <DialogContent>
-        <DialogContentText>Patient Demographics</DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          label="MRNNumber"
-          fullWidth
-          value={inputMRNNumber}
-          onChange={(event) => {
-            setInputMRNNumber(event.target.value);
-          }}
+      <DialogContent
+        style={{
+          width: "35%",
+          minWidth: 400,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <DialogContentText>Past Medical History</DialogContentText>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputHypertension}
+              onChange={(event) => {
+                setInputHypertension(event.target.checked);
+              }}
+            />
+          }
+          label="Hypertension"
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Date of Birth"
-          fullWidth
-          value={inputDateOfBirth}
-          onChange={(event) => {
-            setInputDateOfBirth(event.target.value);
-          }}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputIschaemicHeartDisease}
+              onChange={(event) => {
+                setInputIschaemicHeartDisease(event.target.checked);
+              }}
+            />
+          }
+          label="Ischaemic Heart Disease"
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Gender"
-          fullWidth
-          value={inputGender}
-          onChange={(event) => {
-            setInputGender(event.target.value);
-          }}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputHeartFailure}
+              onChange={(event) => {
+                setInputHeartFailure(event.target.checked);
+              }}
+            />
+          }
+          label="Heart Failure"
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Race"
-          fullWidth
-          value={inputRace}
-          onChange={(event) => {
-            setInputRace(event.target.value);
-          }}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputcvaOrStroke}
+              onChange={(event) => {
+                setInputcvaOrStroke(event.target.checked);
+              }}
+            />
+          }
+          label="CVA/Stroke"
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          label="BMI"
-          fullWidth
-          value={inputBMI}
-          onChange={(event) => {
-            setInputBMI(event.target.value);
-          }}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputCopd}
+              onChange={(event) => {
+                setInputCopd(event.target.checked);
+              }}
+            />
+          }
+          label="COPD"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputIddm}
+              onChange={(event) => {
+                setInputIddm(event.target.checked);
+              }}
+            />
+          }
+          label="IDDM"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={inputNiddm}
+              onChange={(event) => {
+                setInputNiddm(event.target.checked);
+              }}
+            />
+          }
+          label="NIDDM"
         />
       </DialogContent>
       <DialogActions>
