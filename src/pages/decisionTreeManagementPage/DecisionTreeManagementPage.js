@@ -33,7 +33,7 @@ const DecisionTreeManagementPage = () => {
   const classes = useStyles();
   const [decisionTree, setDecisionTree] = useState({});
   const { data: decisionTreeFetched } = useQuery(GET_DECISION_TREES, {
-    pollInterval: 1000 * 60 * 60,
+    pollInterval: 1000 * 30,
   });
   const [updateDecisionTree] = useMutation(UPDATE_DECISION_TREE, {
     variables: {
