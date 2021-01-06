@@ -5,7 +5,6 @@ import {
   createMuiTheme,
 } from "@material-ui/core/styles";
 import grey from "@material-ui/core/colors/grey";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -107,8 +106,8 @@ const DecisionPage = () => {
 
     // Set answer for High grade Dysplasia
     highGradeDysplasia
-      ? answer.push("High grade Dysplasia : Y")
-      : answer.push("High grade Dysplasia : N");
+      ? answer.push("High grade Dysplasia: Y")
+      : answer.push("High grade Dysplasia: N");
 
     return answer;
   };
