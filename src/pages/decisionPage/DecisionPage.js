@@ -22,6 +22,14 @@ const ACQUIRE_DECISION = gql`
   }
 `;
 
+const FINAL_DECISION = gql`
+  mutation FinalDecision($finalDecision: decisionSupportInput!) {
+    finalDecision(finalDecision: $finalDecision) {
+      isOverride
+    }
+  }
+`;
+
 const useStyles = makeStyles({
   container: {
     display: "flex",
@@ -48,6 +56,8 @@ const DecisionPage = () => {
   const history = useHistory();
   const context = useContext(AppContext);
   const [result, setResult] = useState("");
+  const [reason, setReason] = useState("");
+  const [finalDecision, setFinalDecision] = useState({});
   const [numberOfPolyps, setNumberOfPolyps] = useState(0);
   const [largestPolypMoreThan10mm, setLargestPolypMoreThan10mm] = useState(
     false
@@ -60,9 +70,19 @@ const DecisionPage = () => {
   const [acquireDecision, { data }] = useMutation(ACQUIRE_DECISION, {
     variables: { answer: answer },
   });
+  const [submitFinalDecision] = useMutation(FINAL_DECISION, {
+    variables: { finalDecision: finalDecision },
+  });
 
   useEffect(() => {
     setAnswer(generateAnswerForDecisionEngine());
+    setFinalDecision({
+      staffId: context.user.staffId,
+      mRNNumber: context.selectedPatient.mRNNumber,
+      decision: result,
+      isOverride: reason !== "",
+      reason: reason,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     numberOfPolyps,
@@ -71,6 +91,7 @@ const DecisionPage = () => {
     villousArchitecture,
     highGradeDysplasia,
     result,
+    reason,
   ]);
 
   const generateAnswerForDecisionEngine = () => {
@@ -116,6 +137,20 @@ const DecisionPage = () => {
   const handleConfirmClicked = () => {
     setResult(null);
     acquireDecision();
+  };
+  const handleAgreeClicked = () => {
+    submitFinalDecision().catch();
+    context.selectPatient(null);
+    history.push("./decisionsupportpage");
+  };
+  const handleOverrideClicked = () => {
+    if (reason === "") {
+      alert("No valid reason provided");
+    } else {
+      submitFinalDecision().catch();
+      context.selectPatient(null);
+      history.push("./decisionsupportpage");
+    }
   };
 
   if (data) {
@@ -212,7 +247,7 @@ const DecisionPage = () => {
                 display: "flex",
                 flexDirection: "column",
                 flexGrow: 1,
-                height: 100,
+                height: "auto",
               }}
             >
               <TextField
@@ -222,6 +257,19 @@ const DecisionPage = () => {
                 rows={2}
                 variant="outlined"
                 value={result}
+                style={{ margin: "10px 0px" }}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                label="Overriding Reason"
+                multiline
+                rows={5}
+                variant="outlined"
+                value={reason}
+                onChange={(event) => {
+                  setReason(event.target.value);
+                }}
+                style={{ margin: "10px 0px" }}
               />
             </div>
             <div style={{ display: "flex" }}>
@@ -234,10 +282,7 @@ const DecisionPage = () => {
                     backgroundColor: "#25C8C8",
                     color: "#FFFFFF",
                   }}
-                  onClick={() => {
-                    context.selectPatient(null);
-                    history.push("./decisionsupportpage");
-                  }}
+                  onClick={handleAgreeClicked}
                 >
                   AGREE
                 </Button>
@@ -245,7 +290,7 @@ const DecisionPage = () => {
                   variant="contained"
                   style={{ backgroundColor: "#FF8888", color: "white" }}
                   color="primary"
-                  onClick={() => {}}
+                  onClick={handleOverrideClicked}
                 >
                   OVERRIDE
                 </Button>
