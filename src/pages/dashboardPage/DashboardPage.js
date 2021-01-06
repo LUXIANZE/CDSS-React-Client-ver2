@@ -40,6 +40,16 @@ const GET_DECISION_DATA = gql`
   }
 `;
 
+const GET_PATIENT_DATA = gql`
+  query {
+    getReport {
+      mRNNumber
+      report
+      date
+    }
+  }
+`;
+
 const useStyles = makeStyles({
   container: {
     display: "flex",
@@ -107,11 +117,12 @@ const data3 = [
 const DashboardPage = () => {
   const classes = useStyles();
   const [overridPie, setOverridePie] = useState([]);
-  const {
-    loading,
-    error,
-    data: returnedDecisionData,
-  } = useQuery(GET_DECISION_DATA, { pollInterval: 500 });
+  const { data: returnedDecisionData } = useQuery(GET_DECISION_DATA, {
+    pollInterval: 500,
+  });
+  const { data: returnedPatientData } = useQuery(GET_PATIENT_DATA, {
+    pollInterval: 500,
+  });
 
   useEffect(() => {
     setOverridePie(overridePieProcessedData());
@@ -157,7 +168,9 @@ const DashboardPage = () => {
           </LineChart>
         </div> */}
         <div style={{ margin: 50, alignSelf: "center" }}>
-          <Typography variant="h4">Agreed and Overridden decision</Typography>
+          <Typography variant="h4">
+            Overview of Agreed and Overridden decision
+          </Typography>
           <PieChart width={800} height={400}>
             <Pie
               data={overridPie}
@@ -181,8 +194,12 @@ const DashboardPage = () => {
           style={{
             margin: 50,
             alignSelf: "center",
+            minWidth: 800,
           }}
         >
+          <Typography variant="h4">
+            Details of Agreed and Overridden decision
+          </Typography>
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
@@ -202,6 +219,38 @@ const DashboardPage = () => {
                       <TableCell align="center">{row.mRNNumber}</TableCell>
                       <TableCell align="center">{row.decision}</TableCell>
                       <TableCell align="center">{row.reason}</TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            alignSelf: "center",
+            minWidth: 800,
+          }}
+        >
+          <Typography variant="h4">Patient Reports</Typography>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">MRN Number</TableCell>
+                  <TableCell align="center">DATE</TableCell>
+                  <TableCell align="center">SYMPTOMS REPORTED</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {returnedPatientData &&
+                  returnedPatientData.hasOwnProperty("getReport") &&
+                  returnedPatientData.getReport.map((row) => (
+                    <TableRow key={row.name}>
+                      <TableCell align="center">{row.mRNNumber}</TableCell>
+                      <TableCell align="center">{row.date}</TableCell>
+                      <TableCell align="center">{row.report}</TableCell>
                     </TableRow>
                   ))}
               </TableBody>
