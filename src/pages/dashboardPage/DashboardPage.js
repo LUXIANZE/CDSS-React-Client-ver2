@@ -123,9 +123,12 @@ const DashboardPage = () => {
       Overridden: 0,
       Agreed: 0,
     };
-    returnedDecisionData.finalDecisions.forEach((element) => {
-      element.isOverride ? (data.Overridden += 1) : (data.Agreed += 1);
-    });
+    if (returnedDecisionData.hasOwnProperty("finalDecisions")) {
+      returnedDecisionData.finalDecisions.forEach((element) => {
+        element.isOverride ? (data.Overridden += 1) : (data.Agreed += 1);
+      });
+    }
+
     return [
       { name: "Overridden", value: data.Overridden },
       { name: "Agreed", value: data.Agreed },

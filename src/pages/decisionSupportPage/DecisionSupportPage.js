@@ -177,8 +177,8 @@ const DecisionSupportPage = () => {
                   <TableCell>NO.</TableCell>
                   <TableCell align="center">NAME</TableCell>
                   <TableCell align="center">IC/PASSPORT</TableCell>
+                  <TableCell align="center">MRN NUMBER</TableCell>
                   <TableCell align="center">GENDER</TableCell>
-                  <TableCell align="center">AGE</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -189,9 +189,11 @@ const DecisionSupportPage = () => {
                         {index + 1}
                       </TableCell>
                       <TableCell align="center">{patient.name}</TableCell>
-                      <TableCell align="center">{patient.name}</TableCell>
                       <TableCell align="center">{patient.ic}</TableCell>
                       <TableCell align="center">{patient.mRNNumber}</TableCell>
+                      <TableCell align="center">
+                        {patient.patientDemographics.gender}
+                      </TableCell>
                     </TableRow>
                   ))
                 ) : (
