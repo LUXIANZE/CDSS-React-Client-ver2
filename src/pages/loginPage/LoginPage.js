@@ -3,10 +3,11 @@ import { makeStyles } from "@material-ui/styles";
 import { useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import TextField from "@material-ui/core/TextField";
+import HomeWorkTwoToneIcon from "@material-ui/icons/HomeWorkTwoTone";
 import { gql, useMutation } from "@apollo/client";
 
 import { AppContext } from "../../context";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 
 const LOGIN = gql`
   mutation Login($staffId: String!, $password: String!) {
@@ -160,6 +161,29 @@ const LoginPage = () => {
                 }}
               >
                 <Card
+                  style={{
+                    alignSelf: "center",
+                    margin: 10,
+                    padding: 20,
+                    borderRadius: 200,
+                  }}
+                  raised
+                >
+                  <HomeWorkTwoToneIcon
+                    style={{ alignSelf: "center", fontSize: 100 }}
+                    variant="filled"
+                  />
+                </Card>
+                <Typography
+                  style={{
+                    alignSelf: "center",
+                    color: "#FFFFFF",
+                    fontSize: 30,
+                  }}
+                >
+                  CLINICAL DECISION SUPPORT SYSTEM
+                </Typography>
+                <Card
                   backgroundColor="#FFFFFF"
                   style={{ display: "flex" }}
                   raised
@@ -199,6 +223,7 @@ const LoginPage = () => {
                   <TextField
                     label="Password"
                     variant="filled"
+                    type="password"
                     style={{ flexGrow: 1 }}
                     value={signUpInputPassword}
                     onChange={handleSignUpPasswordChange}
@@ -214,6 +239,7 @@ const LoginPage = () => {
                   <TextField
                     label="Confirm Password"
                     variant="filled"
+                    type="password"
                     style={{ flexGrow: 1 }}
                     value={signUpInputConfirmPassword}
                     onChange={handleSignUpConfirmPasswordChange}
@@ -255,6 +281,29 @@ const LoginPage = () => {
                 }}
               >
                 <Card
+                  style={{
+                    alignSelf: "center",
+                    margin: 10,
+                    padding: 20,
+                    borderRadius: 200,
+                  }}
+                  raised
+                >
+                  <HomeWorkTwoToneIcon
+                    style={{ alignSelf: "center", fontSize: 100 }}
+                    variant="filled"
+                  />
+                </Card>
+                <Typography
+                  style={{
+                    alignSelf: "center",
+                    color: "#FFFFFF",
+                    fontSize: 30,
+                  }}
+                >
+                  CLINICAL DECISION SUPPORT SYSTEM
+                </Typography>
+                <Card
                   backgroundColor="#FFFFFF"
                   style={{ display: "flex" }}
                   raised
@@ -277,6 +326,7 @@ const LoginPage = () => {
                   <TextField
                     label="Password"
                     variant="filled"
+                    type="password"
                     style={{ flexGrow: 1 }}
                     value={signInInputPassword}
                     onChange={handleSignInPasswordChange}
