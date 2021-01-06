@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import {
   BarChart,
@@ -15,8 +15,30 @@ import {
   Cell,
 } from "recharts";
 import Typography from "@material-ui/core/Typography";
+import { gql, useQuery } from "@apollo/client";
 
 import Layout from "../../layout";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@material-ui/core";
+
+const GET_DECISION_DATA = gql`
+  query {
+    finalDecisions {
+      staffId
+      isOverride
+      reason
+      mRNNumber
+      decision
+    }
+  }
+`;
 
 const useStyles = makeStyles({
   container: {
@@ -84,11 +106,36 @@ const data3 = [
 
 const DashboardPage = () => {
   const classes = useStyles();
+  const [overridPie, setOverridePie] = useState([]);
+  const {
+    loading,
+    error,
+    data: returnedDecisionData,
+  } = useQuery(GET_DECISION_DATA, { pollInterval: 500 });
+
+  useEffect(() => {
+    setOverridePie(overridePieProcessedData());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [returnedDecisionData]);
+
+  const overridePieProcessedData = () => {
+    let data = {
+      Overridden: 0,
+      Agreed: 0,
+    };
+    returnedDecisionData.finalDecisions.forEach((element) => {
+      element.isOverride ? (data.Overridden += 1) : (data.Agreed += 1);
+    });
+    return [
+      { name: "Overridden", value: data.Overridden },
+      { name: "Agreed", value: data.Agreed },
+    ];
+  };
 
   return (
     <Layout title="Dashboard Page">
       <div className={classes.container}>
-        <div style={{ margin: 50, alignSelf: "center" }}>
+        {/* <div style={{ margin: 50, alignSelf: "center" }}>
           <Typography variant="h4">Weekly reports count</Typography>
           <LineChart
             width={800}
@@ -102,12 +149,12 @@ const DashboardPage = () => {
             <YAxis />
             <Tooltip />
           </LineChart>
-        </div>
+        </div> */}
         <div style={{ margin: 50, alignSelf: "center" }}>
-          <Typography variant="h4">Alltime reports categories</Typography>
+          <Typography variant="h4">Agreed and Overridden decision</Typography>
           <PieChart width={800} height={400}>
             <Pie
-              data={data1}
+              data={overridPie}
               cx={300}
               cy={200}
               labelLine={false}
@@ -115,18 +162,51 @@ const DashboardPage = () => {
               outerRadius={150}
               fill="#8884d8"
             >
-              {data1.map((entry, index) => (
+              {overridPie.map((entry, index) => (
                 <Cell fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
+            <Tooltip />
+            <Legend />
           </PieChart>
+        </div>
+
+        <div
+          style={{
+            margin: 50,
+            alignSelf: "center",
+          }}
+        >
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">Staff ID</TableCell>
+                  <TableCell align="center">MRN Number</TableCell>
+                  <TableCell align="center">Decision Generated</TableCell>
+                  <TableCell align="center">Overriding Reason</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {returnedDecisionData.hasOwnProperty("finalDecisions") &&
+                  returnedDecisionData.finalDecisions.map((row) => (
+                    <TableRow key={row.name}>
+                      <TableCell align="center">{row.staffId}</TableCell>
+                      <TableCell align="center">{row.mRNNumber}</TableCell>
+                      <TableCell align="center">{row.decision}</TableCell>
+                      <TableCell align="center">{row.reason}</TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
 
         <div style={{ margin: 50, alignSelf: "center" }}>
           <Typography variant="h4">Decision accepted and rejected</Typography>
           <BarChart
             width={800}
-            height={400}
+            height={500}
             data={data3}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
