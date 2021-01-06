@@ -54,6 +54,7 @@ const DecisionPage = () => {
     false
   );
   const [villousArchitecture, setVillousArchitecture] = useState(false);
+  const [piecemalResection, setPiecemalResection] = useState(false);
   const [highGradeDysplasia, setHighGradeDysplasia] = useState(false);
   const [answer, setAnswer] = useState([]);
 
@@ -67,6 +68,7 @@ const DecisionPage = () => {
   }, [
     numberOfPolyps,
     largestPolypMoreThan10mm,
+    piecemalResection,
     villousArchitecture,
     highGradeDysplasia,
     result,
@@ -92,6 +94,11 @@ const DecisionPage = () => {
     largestPolypMoreThan10mm
       ? answer.push("Size of largest polyp: <10mm")
       : answer.push("Size of largest polyp: >=10mm");
+
+    // Set answer for Largest Polyp size more than 10 mm
+    piecemalResection
+      ? answer.push("> 20mm polyp & Piecemeal resection: Y")
+      : answer.push("> 20mm polyp & Piecemeal resection: N");
 
     // Set answer for Villous architecture
     villousArchitecture
@@ -149,6 +156,18 @@ const DecisionPage = () => {
                 label="Size of largest polyp < 10mm"
                 onChange={(event) => {
                   setLargestPolypMoreThan10mm(event.target.checked);
+                }}
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    style={{ color: "#25C8C8" }}
+                    checked={piecemalResection}
+                  />
+                }
+                label="> 20mm polyp and Piecemeal resection"
+                onChange={(event) => {
+                  setPiecemalResection(event.target.checked);
                 }}
               />
               <FormControlLabel
