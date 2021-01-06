@@ -123,7 +123,10 @@ const DashboardPage = () => {
       Overridden: 0,
       Agreed: 0,
     };
-    if (returnedDecisionData.hasOwnProperty("finalDecisions")) {
+    if (
+      returnedDecisionData &&
+      returnedDecisionData.hasOwnProperty("finalDecisions")
+    ) {
       returnedDecisionData.finalDecisions.forEach((element) => {
         element.isOverride ? (data.Overridden += 1) : (data.Agreed += 1);
       });
@@ -191,7 +194,8 @@ const DashboardPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {returnedDecisionData.hasOwnProperty("finalDecisions") &&
+                {returnedDecisionData &&
+                  returnedDecisionData.hasOwnProperty("finalDecisions") &&
                   returnedDecisionData.finalDecisions.map((row) => (
                     <TableRow key={row.name}>
                       <TableCell align="center">{row.staffId}</TableCell>

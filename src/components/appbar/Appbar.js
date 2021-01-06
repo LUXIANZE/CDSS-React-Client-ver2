@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
 import { Button, Typography } from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { useHistory } from "react-router-dom";
 
 import { AppContext } from "../../context";
@@ -37,7 +38,8 @@ const Appbar = (props) => {
     <>
       {user && (
         <div className={classes.appbarcontainerStyle}>
-          <div style={{ flexGrow: 1, display: "flex" }}>
+          <div style={{ flexGrow: 1, display: "flex", padding: "0px 20px" }}>
+            <AccountCircleIcon style={{ fontSize: 80, alignSelf: "center" }} />
             <Typography
               variant="h4"
               component="h1"

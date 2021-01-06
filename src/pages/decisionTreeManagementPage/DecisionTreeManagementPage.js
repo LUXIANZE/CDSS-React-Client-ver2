@@ -5,7 +5,7 @@ import locale from "react-json-editor-ajrm/locale/en";
 
 import Layout from "../../layout";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Button } from "@material-ui/core";
+import { Button, Card, CardContent, Typography } from "@material-ui/core";
 
 const GET_DECISION_TREES = gql`
   query {
@@ -23,6 +23,10 @@ const useStyles = makeStyles({
     flexDirection: "row",
     flexGrow: 1,
   },
+  instructions: {
+    borderRadius: 15,
+    padding: 30,
+  },
 });
 
 const DecisionTreeManagementPage = () => {
@@ -31,20 +35,20 @@ const DecisionTreeManagementPage = () => {
   const { data: decisionTreeFetched } = useQuery(GET_DECISION_TREES, {
     pollInterval: 1000 * 60 * 60,
   });
-  const [updateDecisionTree, { data: updateDecisonTreeResult }] = useMutation(
-    UPDATE_DECISION_TREE,
-    {
-      variables: {
-        tree: JSON.stringify(decisionTree),
-      },
-      onCompleted: () => {
-        alert("Successfully updated");
-      },
-    }
-  );
+  const [updateDecisionTree] = useMutation(UPDATE_DECISION_TREE, {
+    variables: {
+      tree: JSON.stringify(decisionTree),
+    },
+    onCompleted: () => {
+      alert("Successfully updated");
+    },
+  });
 
   useEffect(() => {
-    if (decisionTreeFetched.hasOwnProperty("getDecisionTree")) {
+    if (
+      decisionTreeFetched &&
+      decisionTreeFetched.hasOwnProperty("getDecisionTree")
+    ) {
       const stringified_decision_trees = JSON.parse(
         decisionTreeFetched.getDecisionTree
       );
@@ -71,28 +75,70 @@ const DecisionTreeManagementPage = () => {
             margin: 50,
           }}
         >
-          <div style={{ alignSelf: "center", width: "100%", height: "95%" }}>
-            <JSONInput
-              width="100%"
-              height="100%"
-              placeholder={decisionTree}
-              onChange={(content) => {
-                setDecisionTree(content.jsObject);
-              }}
-              locale={locale}
-            />
-          </div>
-          <div style={{ flexGrow: 1, margin: 20 }}>
-            <Button
-              style={{
-                backgroundColor: "#25C8C8",
-                color: "#FFFFFF",
-                alignSelf: "center",
-              }}
-              onClick={handleUpdateTreeClicked}
-            >
-              Update Tree
-            </Button>
+          <div
+            style={{
+              alignSelf: "center",
+              width: "100%",
+              height: "100%",
+              display: "flex",
+            }}
+          >
+            <div style={{ flexGrow: 1, margin: 20 }}>
+              <Card
+                className={classes.instructions}
+                raised
+                style={{ height: "auto", maxWidth: 600 }}
+              >
+                <CardContent>
+                  <Typography
+                    component="h1"
+                    variant="h3"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    Caution
+                  </Typography>
+                  <br />
+                  <Typography>
+                    • Please bear in mind that the decision tree is computer
+                    generated, therefore the data is side are very sensitive to
+                    changes
+                  </Typography>
+                  <br />
+                  <Typography>
+                    • Consult professional advice before changing the Decision
+                    Tree's structure
+                  </Typography>
+                  <br />
+                  <Typography>
+                    • Contact +60143360623 in case of any major failure due to
+                    changes in Decision Tree
+                  </Typography>
+                </CardContent>
+              </Card>
+              <div style={{ flexGrow: 1, margin: "20px 0px" }}>
+                <Button
+                  style={{
+                    backgroundColor: "#25C8C8",
+                    color: "#FFFFFF",
+                    alignSelf: "center",
+                  }}
+                  onClick={handleUpdateTreeClicked}
+                >
+                  Update Tree
+                </Button>
+              </div>
+            </div>
+            <div style={{ flexGrow: 8, margin: 20 }}>
+              <JSONInput
+                width="100%"
+                height="100%"
+                placeholder={decisionTree}
+                onChange={(content) => {
+                  setDecisionTree(content.jsObject);
+                }}
+                locale={locale}
+              />
+            </div>
           </div>
         </div>
       </div>

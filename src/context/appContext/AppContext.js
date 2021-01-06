@@ -4,8 +4,8 @@ import jwtDecode from "jwt-decode";
 const initialState = {
   user: null,
   selectedPatient: null,
-  managementOpened: false,
-  decisionOpened: false,
+  managementOpened: true,
+  decisionOpened: true,
 };
 
 if (localStorage.getItem("jwtToken")) {

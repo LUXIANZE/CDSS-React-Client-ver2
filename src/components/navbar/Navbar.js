@@ -6,10 +6,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
-import SendIcon from "@material-ui/icons/Send";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import ListAlt from "@material-ui/icons/ListAlt";
+import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
+import ShowChart from "@material-ui/icons/ShowChart";
+import DeviceHub from "@material-ui/icons/DeviceHub";
+import Assessment from "@material-ui/icons/Assessment";
+import RecentActors from "@material-ui/icons/RecentActors";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import StarBorder from "@material-ui/icons/StarBorder";
 
 import { AppContext } from "../../context";
 
@@ -50,14 +55,14 @@ const Navbar = () => {
     >
       <ListItem component={Link} to="/dashboard" button>
         <ListItemIcon>
-          <SendIcon />
+          <ShowChart />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
 
       <ListItem button onClick={onManagementClicked}>
         <ListItemIcon>
-          <SendIcon />
+          <Assessment />
         </ListItemIcon>
         <ListItemText primary="Management" />
         {context.managementOpened ? <ExpandLess /> : <ExpandMore />}
@@ -71,7 +76,7 @@ const Navbar = () => {
             to="/decisiontreemanagement"
           >
             <ListItemIcon>
-              <StarBorder />
+              <DeviceHub />
             </ListItemIcon>
             <ListItemText primary="Decision Tree Management" />
           </ListItem>
@@ -91,7 +96,7 @@ const Navbar = () => {
 
       <ListItem button onClick={onDecisionSupportClicked}>
         <ListItemIcon>
-          <SendIcon />
+          <AddCircleIcon />
         </ListItemIcon>
         <ListItemText primary="Decision Support" />
         {context.decisionOpened ? <ExpandLess /> : <ExpandMore />}
@@ -105,7 +110,7 @@ const Navbar = () => {
             to="/decisionsupportpage"
           >
             <ListItemIcon>
-              <StarBorder />
+              <RecentActors />
             </ListItemIcon>
             <ListItemText primary="Select Patient" />
           </ListItem>
@@ -117,7 +122,7 @@ const Navbar = () => {
             to="/patientdetailspage"
           >
             <ListItemIcon>
-              <StarBorder />
+              <ListAlt />
             </ListItemIcon>
             <ListItemText primary="Patient Details" />
           </ListItem>
@@ -129,7 +134,7 @@ const Navbar = () => {
             to="/decisionpage"
           >
             <ListItemIcon>
-              <StarBorder />
+              <DesktopWindowsIcon />
             </ListItemIcon>
             <ListItemText primary="Decision" />
           </ListItem>

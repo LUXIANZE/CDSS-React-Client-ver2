@@ -134,8 +134,12 @@ const DecisionSupportPage = () => {
         >
           <Card className={classes.instructions} raised>
             <CardContent>
-              <Typography component="h5" variant="h5">
-                Word of the Day
+              <Typography
+                component="h1"
+                variant="h3"
+                style={{ fontWeight: "bold" }}
+              >
+                Instructions
               </Typography>
               <br />
               <Typography>
