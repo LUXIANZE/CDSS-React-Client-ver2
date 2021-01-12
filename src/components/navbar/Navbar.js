@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -9,6 +9,7 @@ import Collapse from "@material-ui/core/Collapse";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ListAlt from "@material-ui/icons/ListAlt";
 import DesktopWindowsIcon from "@material-ui/icons/DesktopWindows";
+import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import ShowChart from "@material-ui/icons/ShowChart";
 import DeviceHub from "@material-ui/icons/DeviceHub";
 import Assessment from "@material-ui/icons/Assessment";
@@ -38,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
   const context = useContext(AppContext);
   const classes = useStyles();
-  const history = useHistory();
 
   const onDecisionSupportClicked = () => {
     context.toggleDecision(!context.decisionOpened);
@@ -86,6 +86,18 @@ const Navbar = () => {
               <DeviceHub />
             </ListItemIcon>
             <ListItemText primary="Decision Tree Management" />
+          </ListItem>
+          <ListItem
+            button
+            disabled={context.user.role !== "ADMIN"}
+            className={classes.nested}
+            component={Link}
+            to="/cliniciansmanagement"
+          >
+            <ListItemIcon>
+              <SupervisedUserCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Clinicians Management" />
           </ListItem>
           {/* <ListItem
             button
