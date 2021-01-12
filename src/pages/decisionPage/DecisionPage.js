@@ -6,6 +6,9 @@ import {
 } from "@material-ui/core/styles";
 import grey from "@material-ui/core/colors/grey";
 import Divider from "@material-ui/core/Divider";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { gql, useMutation } from "@apollo/client";
@@ -37,6 +40,10 @@ const useStyles = makeStyles({
     padding: "50px 50px 0px 50px",
     overflow: "scroll",
     flexGrow: 1,
+  },
+  instructions: {
+    borderRadius: 15,
+    padding: 20,
   },
 });
 
@@ -174,6 +181,24 @@ const DecisionPage = () => {
             flexDirection: "column",
           }}
         >
+          <Card className={classes.instructions} raised>
+            <CardContent>
+              <Typography
+                component="h4"
+                variant="h4"
+                style={{ fontWeight: "bold" }}
+              >
+                Instructions
+              </Typography>
+              <Typography>
+                • Please ensure the parameters filled in below are correct.
+              </Typography>
+              <Typography>
+                • Please update the number of polyps manually as it is unable to
+                be extracted from provided report.
+              </Typography>
+            </CardContent>
+          </Card>
           <Form title="Decision Support Questions">
             <div style={{ display: "flex", flexDirection: "column" }}>
               <TextField

@@ -56,7 +56,9 @@ const Form = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.formHeaderStyle}>
-        <Typography style={{ alignSelf: "center" }}>{title}</Typography>
+        <Typography style={{ alignSelf: "center", fontWeight: "bold" }}>
+          {title}
+        </Typography>
         <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
           {showDocumentBtn && (
             <ThemeProvider theme={theme}>
