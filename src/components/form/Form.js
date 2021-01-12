@@ -68,6 +68,7 @@ const Form = (props) => {
                   backgroundColor: "#FFFCFC",
                   color: "#2C5B59",
                 }}
+                onClick={documentBtnHandler}
               >
                 Document
               </Button>

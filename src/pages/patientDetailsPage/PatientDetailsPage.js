@@ -87,6 +87,26 @@ const PatientDetailsPage = () => {
     setOpenUpdateEndoscopyReport(true);
   };
 
+  const handleOpenEndoscopyReport = () => {
+    let popupwin = window.open(
+      context.selectedPatient.endoscopyReport.pdf,
+      "somename",
+      "width=800, height=1000"
+    );
+    popupwin.resizeTo(800, 1000);
+    popupwin.moveBy(100, 100);
+  };
+
+  const handleOpenHistologyReport = () => {
+    let popupwin = window.open(
+      context.selectedPatient.histologyReport.pdf,
+      "somename",
+      "width=800, height=1000"
+    );
+    popupwin.resizeTo(800, 1000);
+    popupwin.moveBy(100, 100);
+  };
+
   const handleOpenUpdateHistologyReport = () => {
     setOpenUpdateHistologyReport(true);
   };
@@ -471,6 +491,7 @@ const PatientDetailsPage = () => {
               <Form
                 title="FINDINGS DURING INDEX COLONOSCOPY"
                 showDocumentBtn={true}
+                documentBtnHandler={handleOpenEndoscopyReport}
                 showEditBtn={true}
                 editBtnHandler={handleOpenUpdateEndoscopyReport}
               >
@@ -633,6 +654,7 @@ const PatientDetailsPage = () => {
               <Form
                 title="HISTOLOGY OF POLYPS FROM INDEX COLONOSCOPY"
                 showDocumentBtn={true}
+                documentBtnHandler={handleOpenHistologyReport}
                 showEditBtn={true}
                 editBtnHandler={handleOpenUpdateHistologyReport}
               >

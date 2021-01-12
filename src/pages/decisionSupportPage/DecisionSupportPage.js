@@ -54,6 +54,7 @@ const GET_PATIENT = gql`
       }
       endoscopyReport {
         date
+        pdf
         qualityOfPreparation
         locationOfPolyps
         noOfPolyps
@@ -63,6 +64,7 @@ const GET_PATIENT = gql`
       }
       histologyReport {
         polypType
+        pdf
         sizeOfLargestPolyp
         villousArchitecture
         highGradeDysplasia
