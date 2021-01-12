@@ -29,6 +29,7 @@ const Appbar = (props) => {
   const { title } = props;
 
   const handleLogout = () => {
+    history.replace("/login");
     logout();
   };
   if (!user) {

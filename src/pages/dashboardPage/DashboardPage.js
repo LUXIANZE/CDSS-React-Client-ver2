@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import {
   BarChart,
@@ -27,6 +27,8 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import { AppContext } from "../../context";
+import { useHistory } from "react-router-dom";
 
 const GET_DECISION_DATA = gql`
   query {
@@ -115,6 +117,8 @@ const data3 = [
 ];
 
 const DashboardPage = () => {
+  const context = useContext(AppContext);
+  const history = useHistory();
   const classes = useStyles();
   const [overridPie, setOverridePie] = useState([]);
   const { data: returnedDecisionData } = useQuery(GET_DECISION_DATA, {
@@ -123,6 +127,10 @@ const DashboardPage = () => {
   const { data: returnedPatientData } = useQuery(GET_PATIENT_DATA, {
     pollInterval: 500,
   });
+
+  if (context.user?.role == null || context.user?.role !== "ADMIN") {
+    history.push("/decisionsupportpage");
+  }
 
   useEffect(() => {
     setOverridePie(overridePieProcessedData());

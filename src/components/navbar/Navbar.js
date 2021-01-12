@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
   const context = useContext(AppContext);
   const classes = useStyles();
+  const history = useHistory();
 
   const onDecisionSupportClicked = () => {
     context.toggleDecision(!context.decisionOpened);
@@ -53,7 +54,12 @@ const Navbar = () => {
       aria-labelledby="nested-list-subheader"
       className={classes.root}
     >
-      <ListItem component={Link} to="/dashboard" button>
+      <ListItem
+        component={Link}
+        to="/dashboard"
+        button
+        disabled={context.user.role !== "ADMIN"}
+      >
         <ListItemIcon>
           <ShowChart />
         </ListItemIcon>
@@ -71,6 +77,7 @@ const Navbar = () => {
         <List component="div" disablePadding>
           <ListItem
             button
+            disabled={context.user.role !== "ADMIN"}
             className={classes.nested}
             component={Link}
             to="/decisiontreemanagement"
