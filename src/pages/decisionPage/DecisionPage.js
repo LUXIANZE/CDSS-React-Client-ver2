@@ -60,11 +60,17 @@ const DecisionPage = () => {
   const [finalDecision, setFinalDecision] = useState({});
   const [numberOfPolyps, setNumberOfPolyps] = useState(0);
   const [largestPolypMoreThan10mm, setLargestPolypMoreThan10mm] = useState(
-    false
+    context.selectedPatient.endoscopyReport.sizeOfLargestPolyp === ">= 10"
   );
-  const [villousArchitecture, setVillousArchitecture] = useState(false);
-  const [piecemalResection, setPiecemalResection] = useState(false);
-  const [highGradeDysplasia, setHighGradeDysplasia] = useState(false);
+  const [piecemalResection, setPiecemalResection] = useState(
+    context.selectedPatient.endoscopyReport.piecemalResection
+  );
+  const [villousArchitecture, setVillousArchitecture] = useState(
+    context.selectedPatient.histologyReport.villousArchitecture
+  );
+  const [highGradeDysplasia, setHighGradeDysplasia] = useState(
+    context.selectedPatient.histologyReport.highGradeDysplasia
+  );
   const [answer, setAnswer] = useState([]);
 
   const [acquireDecision, { data }] = useMutation(ACQUIRE_DECISION, {
@@ -112,8 +118,8 @@ const DecisionPage = () => {
 
     // Set answer for Largest Polyp size more than 10 mm
     largestPolypMoreThan10mm
-      ? answer.push("Size of largest polyp: <10mm")
-      : answer.push("Size of largest polyp: >=10mm");
+      ? answer.push("Size of largest polyp: >=10mm")
+      : answer.push("Size of largest polyp: <10mm");
 
     // Set answer for Largest Polyp size more than 10 mm
     piecemalResection
@@ -187,7 +193,7 @@ const DecisionPage = () => {
                     checked={largestPolypMoreThan10mm}
                   />
                 }
-                label="Size of largest polyp < 10mm"
+                label="Size of largest polyp >= 10mm"
                 onChange={(event) => {
                   setLargestPolypMoreThan10mm(event.target.checked);
                 }}
