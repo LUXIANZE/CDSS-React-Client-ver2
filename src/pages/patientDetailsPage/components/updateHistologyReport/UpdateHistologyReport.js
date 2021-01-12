@@ -126,7 +126,7 @@ const UpdateHistologyReport = (props) => {
           style={{ minWidth: 300, width: "100%", margin: "10px 0px" }}
           variant="outlined"
           type="number"
-          label="Number of prior colonoscopies"
+          label="Size of the largest polyp /mm"
           value={inputSizeOfLargestPolyp}
           onChange={(event) => {
             setInputSizeOfLargestPolyp(event.target.value);
