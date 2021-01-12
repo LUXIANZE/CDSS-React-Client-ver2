@@ -27,6 +27,9 @@ const UpdatePatientDemographics = (props) => {
       ? context.selectedPatient.patientDemographics.mRNNumber
       : ""
   );
+  const [inputIc, setInputIc] = useState(
+    context.selectedPatient.ic ? context.selectedPatient.ic : ""
+  );
   const [inputDateOfBirth, setInputDateOfBirth] = useState(
     context.selectedPatient.patientDemographics.dateOfBirth
       ? context.selectedPatient.patientDemographics.dateOfBirth
@@ -55,6 +58,7 @@ const UpdatePatientDemographics = (props) => {
   useEffect(() => {
     let temp_updatedPatient = PatientVariableConverter(context.selectedPatient);
     temp_updatedPatient.patientDemographics.mRNNumber = inputMRNNumber;
+    temp_updatedPatient.ic = inputIc;
     temp_updatedPatient.patientDemographics.gender = inputGender;
     temp_updatedPatient.patientDemographics.dateOfBirth = inputDateOfBirth;
     temp_updatedPatient.patientDemographics.race = inputRace;
@@ -63,7 +67,14 @@ const UpdatePatientDemographics = (props) => {
 
     setUpdatedPatient(formatted_variables);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputMRNNumber, inputGender, inputDateOfBirth, inputRace, inputBMI]);
+  }, [
+    inputMRNNumber,
+    inputGender,
+    inputDateOfBirth,
+    inputRace,
+    inputBMI,
+    inputIc,
+  ]);
 
   const handleSave = () => {
     updatePatientMutation().catch((e) => {
@@ -102,6 +113,16 @@ const UpdatePatientDemographics = (props) => {
           value={inputMRNNumber}
           onChange={(event) => {
             setInputMRNNumber(event.target.value);
+          }}
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          label="IC/PASSPORT"
+          fullWidth
+          value={inputIc}
+          onChange={(event) => {
+            setInputIc(event.target.value);
           }}
         />
         <MuiPickersUtilsProvider utils={DateFnsUtils}>

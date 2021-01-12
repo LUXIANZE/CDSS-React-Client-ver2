@@ -207,6 +207,12 @@ const PatientDetailsPage = () => {
                         ? context.selectedPatient.patientDemographics.mRNNumber
                         : "N/A"}
                     </Typography>
+                    <Typography>IC/PASSPORT</Typography>
+                    <Typography>
+                      {context.selectedPatient.ic
+                        ? context.selectedPatient.ic
+                        : "N/A"}
+                    </Typography>
                     <Typography>Date of Birth</Typography>
                     <Typography>
                       {context.selectedPatient.patientDemographics.dateOfBirth
