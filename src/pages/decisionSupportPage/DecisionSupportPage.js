@@ -83,7 +83,7 @@ const useStyles = makeStyles({
   },
   instructions: {
     borderRadius: 15,
-    padding: 30,
+    padding: 20,
   },
   input: {
     display: "flex",
@@ -137,23 +137,20 @@ const DecisionSupportPage = () => {
           <Card className={classes.instructions} raised>
             <CardContent>
               <Typography
-                component="h1"
-                variant="h3"
+                component="h4"
+                variant="h4"
                 style={{ fontWeight: "bold" }}
               >
                 Instructions
               </Typography>
-              <br />
               <Typography>
                 • Please key in patient’s RN number in the search bar below and
                 press “SEARCH” to retrieve patient data.
               </Typography>
-              <br />
               <Typography>
                 • In order to view patient’s data in detail, click on the row of
                 patient you would like to view.
               </Typography>
-              <br />
               <Typography>
                 • After looking through the details and reports of patients,
                 clinicians can proceed to “Decision” page to get decision making
