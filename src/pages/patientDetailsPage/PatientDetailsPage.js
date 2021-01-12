@@ -609,7 +609,7 @@ const PatientDetailsPage = () => {
                       label="Rectum"
                     />
                   </div>
-                  <Typography>Number of polypsdetected</Typography>
+                  <Typography>Number of polyps detected</Typography>
                   <Typography>
                     {context.selectedPatient.endoscopyReport.noOfPolyps
                       ? context.selectedPatient.endoscopyReport.noOfPolyps
