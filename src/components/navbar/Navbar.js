@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -38,7 +38,22 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const context = useContext(AppContext);
+  const history = useHistory();
   const classes = useStyles();
+
+  useEffect(() => {
+    if (!context.user) {
+      if (localStorage.getItem("user")) {
+        const rawUserData = localStorage.getItem("user");
+        const userData = JSON.parse(rawUserData);
+        console.log("userData :>> ", userData);
+        console.log("user :>> ", context.user);
+        context.login(userData);
+      } else {
+        history.replace("/login");
+      }
+    }
+  });
 
   const onDecisionSupportClicked = () => {
     context.toggleDecision(!context.decisionOpened);
@@ -58,7 +73,7 @@ const Navbar = () => {
         component={Link}
         to="/dashboard"
         button
-        disabled={context.user.role !== "ADMIN"}
+        disabled={context.user?.role !== "ADMIN"}
       >
         <ListItemIcon>
           <ShowChart />
@@ -77,7 +92,7 @@ const Navbar = () => {
         <List component="div" disablePadding>
           <ListItem
             button
-            disabled={context.user.role !== "ADMIN"}
+            disabled={context.user?.role !== "ADMIN"}
             className={classes.nested}
             component={Link}
             to="/decisiontreemanagement"
@@ -89,7 +104,7 @@ const Navbar = () => {
           </ListItem>
           <ListItem
             button
-            disabled={context.user.role !== "ADMIN"}
+            disabled={context.user?.role !== "ADMIN"}
             className={classes.nested}
             component={Link}
             to="/cliniciansmanagement"
@@ -131,7 +146,11 @@ const Navbar = () => {
             <ListItemIcon>
               <RecentActors />
             </ListItemIcon>
-            <ListItemText primary="Select Patient" />
+            <ListItemText
+              primary={`Select Patient: \n${
+                context.selectedPatient?.name || ""
+              }`}
+            />
           </ListItem>
           <ListItem
             button

@@ -84,8 +84,12 @@ const DashboardPage = () => {
   });
   const [reportsData, setReportsData] = useState([]);
 
-  if (context.user?.role == null || context.user?.role !== "ADMIN") {
-    history.push("/decisionsupportpage");
+  if (localStorage.getItem("user")) {
+    const raw_user = localStorage.getItem("user");
+    const valid_user = JSON.parse(raw_user);
+    if (valid_user?.role == null || valid_user?.role !== "ADMIN") {
+      history.push("/decisionsupportpage");
+    }
   }
 
   useEffect(() => {
@@ -122,7 +126,6 @@ const DashboardPage = () => {
         temp_data.push({ id: index + 1, ...finalDecision });
       });
       setDecisionData(temp_data);
-      console.log("temp_data :>> ", temp_data);
     }
   };
 
@@ -133,7 +136,6 @@ const DashboardPage = () => {
         temp_data.push({ id: index + 1, ...report });
       });
       setReportsData(temp_data);
-      console.log("temp_data :>> ", temp_data);
     }
   };
 

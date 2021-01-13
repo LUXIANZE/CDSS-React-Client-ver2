@@ -103,8 +103,11 @@ const DecisionSupportPage = () => {
   });
 
   const patientClicked = () => {
-    context.selectPatient(returnedPatient[0]);
-    history.push("/patientdetailspage");
+    console.log("returnedPatient :>> ", returnedPatient);
+    if (returnedPatient[0] !== null) {
+      context.selectPatient(returnedPatient[0]);
+      history.push("/patientdetailspage");
+    }
   };
 
   const onSearchClicked = () => {
@@ -185,17 +188,21 @@ const DecisionSupportPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {returnedPatient ? (
+                {returnedPatient !== null && returnedPatient[0] !== null ? (
                   returnedPatient.map((patient, index) => (
                     <TableRow key={index + 1} onClick={patientClicked}>
                       <TableCell component="th" scope="row">
                         {index + 1}
                       </TableCell>
-                      <TableCell align="center">{patient.name}</TableCell>
-                      <TableCell align="center">{patient.ic}</TableCell>
-                      <TableCell align="center">{patient.mRNNumber}</TableCell>
                       <TableCell align="center">
-                        {patient.patientDemographics.gender}
+                        {patient?.name || ""}
+                      </TableCell>
+                      <TableCell align="center">{patient?.ic || ""}</TableCell>
+                      <TableCell align="center">
+                        {patient?.mRNNumber || ""}
+                      </TableCell>
+                      <TableCell align="center">
+                        {patient?.patientDemographics.gender || ""}
                       </TableCell>
                     </TableRow>
                   ))

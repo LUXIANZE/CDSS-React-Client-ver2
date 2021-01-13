@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
 import { Button, Typography } from "@material-ui/core";
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 });
 
 const Appbar = (props) => {
-  const { user, logout } = useContext(AppContext);
+  const { user, logout, login } = useContext(AppContext);
   const history = useHistory();
   const classes = useStyles();
   const { title } = props;
@@ -32,9 +32,20 @@ const Appbar = (props) => {
     history.replace("/login");
     logout();
   };
-  if (!user) {
-    history.replace("/login");
-  }
+  useEffect(() => {
+    if (!user) {
+      if (localStorage.getItem("user")) {
+        const rawUserData = localStorage.getItem("user");
+        const userData = JSON.parse(rawUserData);
+        console.log("userData :>> ", userData);
+        console.log("user :>> ", user);
+        login(userData);
+      } else {
+        history.replace("/login");
+      }
+    }
+  });
+
   return (
     <>
       {user && (
