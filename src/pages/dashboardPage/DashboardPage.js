@@ -67,11 +67,11 @@ const DashboardPage = () => {
   const classes = useStyles();
   const [overridPie, setOverridePie] = useState([]);
   const { data: returnedDecisionData } = useQuery(GET_DECISION_DATA, {
-    pollInterval: 10000,
+    pollInterval: 500,
   });
   const [decisionData, setDecisionData] = useState([]);
   const { data: returnedPatientData } = useQuery(GET_PATIENT_DATA, {
-    pollInterval: 10000,
+    pollInterval: 500,
   });
   const [reportsData, setReportsData] = useState([]);
 
@@ -88,7 +88,7 @@ const DashboardPage = () => {
     processDecisionTableData();
     processSymptomsTableData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [returnedDecisionData]);
+  }, [returnedDecisionData, returnedPatientData]);
 
   const overridePieProcessedData = () => {
     let data = {
@@ -113,7 +113,9 @@ const DashboardPage = () => {
   const processDecisionTableData = () => {
     if (returnedDecisionData) {
       let temp_data = [];
-      returnedDecisionData.finalDecisions.forEach((finalDecision, index) => {
+      let reversedList = [...returnedDecisionData.finalDecisions];
+      reversedList = reversedList.reverse();
+      reversedList.forEach((finalDecision, index) => {
         temp_data.push({ id: index + 1, ...finalDecision });
       });
       setDecisionData(temp_data);
@@ -123,7 +125,9 @@ const DashboardPage = () => {
   const processSymptomsTableData = () => {
     if (returnedPatientData) {
       let temp_data = [];
-      returnedPatientData.getReport.forEach((report, index) => {
+      let reversedList = [...returnedPatientData.getReport];
+      reversedList = reversedList.reverse();
+      reversedList.forEach((report, index) => {
         temp_data.push({ id: index + 1, ...report });
       });
       setReportsData(temp_data);
@@ -134,7 +138,7 @@ const DashboardPage = () => {
     { field: "id", headerName: "No", width: 80 },
     { field: "mRNNumber", headerName: "MRN Number", width: 200 },
     { field: "date", headerName: "Date", width: 200 },
-    { field: "report", headerName: "Symptoms", width: 500 },
+    { field: "report", headerName: "Symptoms", width: 1000 },
   ];
 
   const decisionTableColumns = [
@@ -142,13 +146,13 @@ const DashboardPage = () => {
     { field: "staffId", headerName: "Staff ID", width: 150 },
     { field: "mRNNumber", headerName: "MRN Number", width: 200 },
     { field: "decision", headerName: "decision", width: 120 },
-    { field: "isOverride", headerName: "Overridden", width: 120 },
+    { field: "isOverride", headerName: "Overridden", width: 150 },
     {
       field: "overridingDecision",
       headerName: "Overriding Decision",
-      width: 200,
+      width: 180,
     },
-    { field: "reason", headerName: "Overriding Reason", width: 300 },
+    { field: "reason", headerName: "Overriding Reason", width: 1000 },
   ];
 
   return (
@@ -182,24 +186,28 @@ const DashboardPage = () => {
           Details of Agreed and Overridden decision
         </Typography>
         <div style={{ minHeight: 400, width: "90%", margin: 50 }}>
-          <DataGrid
-            rows={decisionData}
-            columns={decisionTableColumns}
-            pageSize={5}
-            disableSelectionOnClick
-          />
+          {returnedDecisionData && (
+            <DataGrid
+              rows={decisionData}
+              columns={decisionTableColumns}
+              pageSize={5}
+              disableSelectionOnClick
+            />
+          )}
         </div>
 
         <Typography variant="h4" style={{ margin: "0px 50px" }}>
           Details of patients reported symptoms
         </Typography>
         <div style={{ minHeight: 400, width: "90%", margin: 50 }}>
-          <DataGrid
-            rows={reportsData}
-            columns={reportsTableColumns}
-            pageSize={5}
-            disableSelectionOnClick
-          />
+          {returnedPatientData && (
+            <DataGrid
+              rows={reportsData}
+              columns={reportsTableColumns}
+              pageSize={5}
+              disableSelectionOnClick
+            />
+          )}
         </div>
       </div>
     </Layout>
