@@ -147,8 +147,10 @@ const Navbar = () => {
               <RecentActors />
             </ListItemIcon>
             <ListItemText
-              primary={`Select Patient: \n${
-                context.selectedPatient?.name || ""
+              primary={`Select Patient${
+                context.selectedPatient !== null
+                  ? ` : ${context.selectedPatient?.name}`
+                  : ""
               }`}
             />
           </ListItem>
