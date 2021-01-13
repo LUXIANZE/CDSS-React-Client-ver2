@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Legend, Tooltip, PieChart, Pie, Cell } from "recharts";
 import { DataGrid } from "@material-ui/data-grid";
@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import { gql, useQuery } from "@apollo/client";
 
 import Layout from "../../layout";
-import { AppContext } from "../../context";
 import { useHistory } from "react-router-dom";
 
 const GET_DECISION_DATA = gql`
@@ -71,7 +70,6 @@ const renderCustomizedLabel = ({
 };
 
 const DashboardPage = () => {
-  const context = useContext(AppContext);
   const history = useHistory();
   const classes = useStyles();
   const [overridPie, setOverridePie] = useState([]);
