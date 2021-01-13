@@ -46,8 +46,6 @@ const Navbar = () => {
       if (localStorage.getItem("user")) {
         const rawUserData = localStorage.getItem("user");
         const userData = JSON.parse(rawUserData);
-        console.log("userData :>> ", userData);
-        console.log("user :>> ", context.user);
         context.login(userData);
       } else {
         history.replace("/login");

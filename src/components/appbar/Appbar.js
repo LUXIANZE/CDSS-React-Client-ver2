@@ -37,8 +37,6 @@ const Appbar = (props) => {
       if (localStorage.getItem("user")) {
         const rawUserData = localStorage.getItem("user");
         const userData = JSON.parse(rawUserData);
-        console.log("userData :>> ", userData);
-        console.log("user :>> ", user);
         login(userData);
       } else {
         history.replace("/login");
