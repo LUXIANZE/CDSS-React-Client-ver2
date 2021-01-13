@@ -5,9 +5,12 @@ import Card from "@material-ui/core/Card";
 import TextField from "@material-ui/core/TextField";
 import HomeWorkTwoToneIcon from "@material-ui/icons/HomeWorkTwoTone";
 import { gql, useMutation } from "@apollo/client";
+import { Button, Typography } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 import { AppContext } from "../../context";
-import { Button, Typography } from "@material-ui/core";
 
 const LOGIN = gql`
   mutation Login($staffId: String!, $password: String!) {
@@ -36,6 +39,8 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     flexGrow: 1,
+    backgroundImage:
+      "radial-gradient(circle, #caf8f8, #a7e0e0, #83c9c9, #5eb2b2, #329b9b)",
     height: "100%",
   },
   middle: {
@@ -47,7 +52,8 @@ const useStyles = makeStyles({
     minWidth: 700,
     width: "60%",
     alignSelf: "center",
-    backgroundColor: "#25C8C8",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 50,
     padding: 50,
   },
 });
@@ -62,6 +68,18 @@ const LoginPage = () => {
   const [signUpInputStaffId, setSignUpInputStaffId] = useState("");
   const [signUpInputName, setSignUpInputName] = useState("");
   const [signUpInputPassword, setSignUpInputPassword] = useState("");
+
+  /**
+   * Error states
+   */
+  const [loginStaffIdErr, setLoginStaffIdErr] = useState(false);
+  const [loginPasswordErr, setLoginPasswordErr] = useState(false);
+  const [nameErr, setNameErr] = useState(false);
+  const [staffIdErr, setStaffIdErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState(false);
+
+  const [open, setOpen] = useState(false);
   const [signUpInputConfirmPassword, setSignUpInputConfirmPassword] = useState(
     ""
   );
@@ -86,44 +104,76 @@ const LoginPage = () => {
     }
   );
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleLoginClicked = () => {
     gqlLogin().catch((e) => {
-      alert(e);
+      setOpen(true);
     });
   };
 
   const handleSignUpClicked = () => {
     if (signUpInputPassword === signUpInputConfirmPassword) {
       gqlSignup().catch((e) => {
-        alert(e);
+        setOpen(true);
       });
-    } else {
-      alert("Password and confirm password not the same");
     }
   };
 
   const handleSignInStaffIdChange = (event) => {
     setSignInInputStaffId(event.target.value);
+    if (event.target.value.trim() === "") {
+      setLoginStaffIdErr(true);
+    } else {
+      setLoginStaffIdErr(false);
+    }
   };
 
   const handleSignInPasswordChange = (event) => {
     setSignInInputPassword(event.target.value);
+    if (event.target.value === "") {
+      setLoginPasswordErr(true);
+    } else {
+      setLoginPasswordErr(false);
+    }
   };
 
   const handleSignUpNameChange = (event) => {
     setSignUpInputName(event.target.value);
+    if (event.target.value.trim() === "") {
+      setNameErr(true);
+    } else {
+      setNameErr(false);
+    }
   };
 
   const handleSignUpStaffIdChange = (event) => {
     setSignUpInputStaffId(event.target.value);
+    if (event.target.value.trim() === "") {
+      setStaffIdErr(true);
+    } else {
+      setStaffIdErr(false);
+    }
   };
 
   const handleSignUpPasswordChange = (event) => {
     setSignUpInputPassword(event.target.value);
+    if (event.target.value.length < 6) {
+      setPasswordErr(true);
+    } else {
+      setPasswordErr(false);
+    }
   };
 
   const handleSignUpConfirmPasswordChange = (event) => {
     setSignUpInputConfirmPassword(event.target.value);
+    if (event.target.value !== signUpInputPassword) {
+      setConfirmPasswordErr(true);
+    } else {
+      setConfirmPasswordErr(false);
+    }
   };
 
   if (loginData) {
@@ -171,83 +221,69 @@ const LoginPage = () => {
                 >
                   <HomeWorkTwoToneIcon
                     style={{ alignSelf: "center", fontSize: 100 }}
-                    variant="filled"
+                    variant="outlined"
                   />
                 </Card>
                 <Typography
                   style={{
                     alignSelf: "center",
-                    color: "#FFFFFF",
+                    color: "#25C8C8",
                     fontSize: 30,
                   }}
                 >
                   CLINICAL DECISION SUPPORT SYSTEM
                 </Typography>
-                <Card
-                  backgroundColor="#FFFFFF"
-                  style={{ display: "flex" }}
-                  raised
-                >
-                  <TextField
-                    label="Name"
-                    variant="filled"
-                    style={{ flexGrow: 1 }}
-                    value={signUpInputName}
-                    onChange={handleSignUpNameChange}
-                  ></TextField>
-                </Card>
+                <TextField
+                  error={nameErr}
+                  helperText={nameErr ? "Name cannot be blank" : ""}
+                  label="Name"
+                  variant="outlined"
+                  style={{ flexGrow: 1, minHeight: 80 }}
+                  value={signUpInputName}
+                  onChange={handleSignUpNameChange}
+                />
 
-                <span style={{ height: 20 }} />
+                <TextField
+                  error={staffIdErr}
+                  helperText={staffIdErr ? "No staff ID provided" : ""}
+                  label="Staff ID"
+                  variant="outlined"
+                  style={{ flexGrow: 1, minHeight: 80 }}
+                  value={signUpInputStaffId}
+                  onChange={handleSignUpStaffIdChange}
+                />
 
-                <Card
-                  backgroundColor="#FFFFFF"
-                  style={{ display: "flex" }}
-                  raised
-                >
-                  <TextField
-                    label="Staff ID"
-                    variant="filled"
-                    style={{ flexGrow: 1 }}
-                    value={signUpInputStaffId}
-                    onChange={handleSignUpStaffIdChange}
-                  ></TextField>
-                </Card>
+                <TextField
+                  error={passwordErr}
+                  helperText={
+                    passwordErr ? "Password must be at least 6 characters" : ""
+                  }
+                  label="Password"
+                  variant="outlined"
+                  type="password"
+                  style={{ flexGrow: 1, minHeight: 80 }}
+                  value={signUpInputPassword}
+                  onChange={handleSignUpPasswordChange}
+                />
 
-                <span style={{ height: 20 }} />
+                <TextField
+                  error={confirmPasswordErr}
+                  helperText={
+                    confirmPasswordErr
+                      ? "Confirm password not the same as password"
+                      : ""
+                  }
+                  label="Confirm Password"
+                  variant="outlined"
+                  type="password"
+                  style={{ flexGrow: 1, minHeight: 80 }}
+                  value={signUpInputConfirmPassword}
+                  onChange={handleSignUpConfirmPasswordChange}
+                />
 
-                <Card
-                  backgroundColor="#FFFFFF"
-                  style={{ display: "flex" }}
-                  raised
-                >
-                  <TextField
-                    label="Password"
-                    variant="filled"
-                    type="password"
-                    style={{ flexGrow: 1 }}
-                    value={signUpInputPassword}
-                    onChange={handleSignUpPasswordChange}
-                  ></TextField>
-                </Card>
-
-                <span style={{ height: 20 }} />
-                <Card
-                  backgroundColor="#FFFFFF"
-                  style={{ display: "flex" }}
-                  raised
-                >
-                  <TextField
-                    label="Confirm Password"
-                    variant="filled"
-                    type="password"
-                    style={{ flexGrow: 1 }}
-                    value={signUpInputConfirmPassword}
-                    onChange={handleSignUpConfirmPasswordChange}
-                  ></TextField>
-                </Card>
-                <span style={{ height: 20 }} />
                 <div style={{ display: "flex", flexDirection: "row-reverse" }}>
                   <Button
+                    variant="contained"
                     style={{
                       backgroundColor: "#FFFCFC",
                       color: "#2C5B59",
@@ -259,6 +295,7 @@ const LoginPage = () => {
                   </Button>
                   <span style={{ width: 20 }} />
                   <Button
+                    variant="contained"
                     style={{
                       backgroundColor: "#FFFCFC",
                       color: "#2C5B59",
@@ -291,50 +328,44 @@ const LoginPage = () => {
                 >
                   <HomeWorkTwoToneIcon
                     style={{ alignSelf: "center", fontSize: 100 }}
-                    variant="filled"
+                    variant="outlined"
                   />
                 </Card>
                 <Typography
                   style={{
                     alignSelf: "center",
-                    color: "#FFFFFF",
+                    color: "#25C8C8",
                     fontSize: 30,
                   }}
                 >
                   CLINICAL DECISION SUPPORT SYSTEM
                 </Typography>
-                <Card
-                  backgroundColor="#FFFFFF"
-                  style={{ display: "flex" }}
-                  raised
-                >
-                  <TextField
-                    label="Staff ID"
-                    variant="filled"
-                    style={{ flexGrow: 1 }}
-                    value={signInInputStaffId}
-                    onChange={handleSignInStaffIdChange}
-                  ></TextField>
-                </Card>
+                <TextField
+                  error={loginStaffIdErr}
+                  helperText={loginStaffIdErr ? "Staff ID cannot be blank" : ""}
+                  label="Staff ID"
+                  variant="outlined"
+                  style={{ flexGrow: 1, minHeight: 80 }}
+                  value={signInInputStaffId}
+                  onChange={handleSignInStaffIdChange}
+                />
 
-                <span style={{ height: 20 }} />
-                <Card
-                  backgroundColor="#FFFFFF"
-                  style={{ display: "flex" }}
-                  raised
-                >
-                  <TextField
-                    label="Password"
-                    variant="filled"
-                    type="password"
-                    style={{ flexGrow: 1 }}
-                    value={signInInputPassword}
-                    onChange={handleSignInPasswordChange}
-                  ></TextField>
-                </Card>
-                <span style={{ height: 20 }} />
+                <TextField
+                  error={loginPasswordErr}
+                  helperText={
+                    loginPasswordErr ? "Password cannot be blank" : ""
+                  }
+                  label="Password"
+                  variant="outlined"
+                  type="password"
+                  style={{ flexGrow: 1, minHeight: 80 }}
+                  value={signInInputPassword}
+                  onChange={handleSignInPasswordChange}
+                />
+
                 <div style={{ display: "flex", flexDirection: "row-reverse" }}>
                   <Button
+                    variant="contained"
                     style={{
                       backgroundColor: "#FFFCFC",
                       color: "#2C5B59",
@@ -346,6 +377,7 @@ const LoginPage = () => {
                   </Button>
                   <span style={{ width: 20 }} />
                   <Button
+                    variant="contained"
                     style={{
                       backgroundColor: "#FFFCFC",
                       color: "#2C5B59",
@@ -361,6 +393,32 @@ const LoginPage = () => {
           )}
         </div>
       </div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={
+          isSingup
+            ? "Invalid Signup credentials"
+            : "Invalid Login credentials, please check your staffId and password"
+        }
+        action={
+          <React.Fragment>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
     </div>
   );
 };
