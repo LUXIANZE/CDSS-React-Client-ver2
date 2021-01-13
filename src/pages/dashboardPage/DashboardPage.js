@@ -43,15 +43,8 @@ const useStyles = makeStyles({
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index,
-}) => {
+const renderCustomizedLabel = (props) => {
+  const { cx, cy, midAngle, innerRadius, outerRadius, percent, value } = props;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -64,7 +57,7 @@ const renderCustomizedLabel = ({
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
     >
-      {`${(percent * 100).toFixed(0)}%`}
+      {`${(percent * 100).toFixed(0)}% (${value})`}
     </text>
   );
 };
@@ -168,6 +161,7 @@ const DashboardPage = () => {
           <PieChart width={800} height={400}>
             <Pie
               data={overridPie}
+              dataKey="value"
               cx={300}
               cy={200}
               labelLine={false}
