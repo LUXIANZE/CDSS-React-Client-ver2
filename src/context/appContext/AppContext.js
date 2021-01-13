@@ -26,6 +26,7 @@ const AppContext = createContext({
   login: (userData) => {},
   logout: () => {},
   selectPatient: (selectedPatient) => {},
+  updateUserRole: (role) => {},
   toggleManagement: () => {},
   toggleDecision: () => {},
 });
@@ -46,6 +47,14 @@ function appReducer(state, action) {
       return {
         ...state,
         selectedPatient: action.payload,
+      };
+    case "UPDATE_USER_ROLE":
+      return {
+        ...state,
+        user: {
+          role: action.payload,
+          ...state.user,
+        },
       };
     case "TOGGLE_MANAGEMENT":
       return {
@@ -85,6 +94,13 @@ function AppProvider(props) {
     });
   }
 
+  function updateUserRole(role) {
+    dispatch({
+      type: "UPDATE_USER_ROLE",
+      payload: role,
+    });
+  }
+
   function toggleManagement(set) {
     dispatch({
       type: "TOGGLE_MANAGEMENT",
@@ -109,6 +125,7 @@ function AppProvider(props) {
         login,
         logout,
         selectPatient,
+        updateUserRole,
         toggleManagement,
         toggleDecision,
       }}
