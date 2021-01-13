@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { DataGrid } from "@material-ui/data-grid";
 import Card from "@material-ui/core/Card";
@@ -36,23 +36,32 @@ const USERS_QUERY = gql`
 
 const CliniciansManagementPage = () => {
   const classes = useStyles();
-  const { loading, error, data, refetch } = useQuery(USERS_QUERY);
-  const [users, setUsers] = useState(null);
+  const { error, data } = useQuery(USERS_QUERY, {
+    pollInterval: 500,
+  });
+  const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showUpdateUserForm, setShowUpdateUserForm] = useState(false);
-  const [refetchFlag, setRefetchFlag] = useState(false);
 
   const handleOnRowClicked = (params) => {
     setSelectedUser(params.row);
-    setRefetchFlag(false);
     if (selectedUser) {
       setShowUpdateUserForm(true);
     }
   };
   const handleCloseUpdateUserForm = () => {
-    refetch();
     setShowUpdateUserForm(false);
   };
+
+  useEffect(() => {
+    if (data) {
+      let temp_users = [];
+      data.clinicians.forEach((clinician, index) => {
+        temp_users.push({ id: index + 1, ...clinician });
+      });
+      setUsers(temp_users);
+    }
+  }, [data]);
 
   const columns = [
     { field: "id", headerName: "No", width: 90 },
@@ -60,18 +69,6 @@ const CliniciansManagementPage = () => {
     { field: "staffId", headerName: "Staff ID", width: 300 },
     { field: "role", headerName: "Role", width: 130 },
   ];
-
-  if (data) {
-    if (!refetchFlag) {
-      console.log("data :>> ", data);
-      let temp_users = [];
-      data.clinicians.forEach((clinician, index) => {
-        temp_users.push({ id: index + 1, ...clinician });
-      });
-      setUsers(temp_users);
-      setRefetchFlag(true);
-    }
-  }
 
   if (error) {
     console.log("error :>> ", error);
@@ -102,11 +99,9 @@ const CliniciansManagementPage = () => {
           </Card>
           <br />
           <div style={{ height: 400, width: "100%" }}>
-            {users && (
+            {
               <>
-                {loading ? (
-                  <div>loading</div>
-                ) : (
+                {data && (
                   <DataGrid
                     rows={users}
                     columns={columns}
@@ -116,7 +111,7 @@ const CliniciansManagementPage = () => {
                   />
                 )}
               </>
-            )}
+            }
           </div>
         </div>
       </div>

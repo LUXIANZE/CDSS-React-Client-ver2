@@ -89,7 +89,7 @@ const useStyles = makeStyles({
   input: {
     display: "flex",
     flexDirection: "row",
-    margin: "50px 0px",
+    margin: "30px 0px",
     minHeight: 80,
   },
   wrapper: {
@@ -120,21 +120,7 @@ const DecisionSupportPage = () => {
     errorText: "",
   });
 
-  useEffect(() => {
-    if (patientMRNNumber.trim() === "") {
-      const searchError = {
-        isError: true,
-        errorText: "Please key in MRN Number to proceed",
-      };
-      setSearchError(searchError);
-    } else {
-      const searchError = {
-        isError: false,
-        errorText: "",
-      };
-      setSearchError(searchError);
-    }
-  }, [patientMRNNumber]);
+  useEffect(() => {}, [patientMRNNumber]);
 
   const patientClicked = () => {
     console.log("returnedPatient :>> ", returnedPatient);
@@ -155,6 +141,19 @@ const DecisionSupportPage = () => {
 
   const mRNChangedHandler = (event) => {
     setPatientMRNNumber(event.target.value);
+    if (event.target.value.trim() === "") {
+      const searchError = {
+        isError: true,
+        errorText: "Please key in MRN Number to proceed",
+      };
+      setSearchError(searchError);
+    } else {
+      const searchError = {
+        isError: false,
+        errorText: "",
+      };
+      setSearchError(searchError);
+    }
   };
 
   if (error) {
@@ -162,12 +161,6 @@ const DecisionSupportPage = () => {
   }
   if (data) {
     const { patient } = data;
-    if (patient === null && !searchError.isError) {
-      setSearchError({
-        isError: true,
-        errorText: "Invalid MRN Number",
-      });
-    }
     if (!returnedPatient) setReturnedPatient([patient]);
   }
 
@@ -211,6 +204,7 @@ const DecisionSupportPage = () => {
               error={searchError.isError}
               helperText={searchError.errorText}
               variant="outlined"
+              label="MRN Number"
               style={{ alignSelf: "start", minWidth: 500 }}
               onChange={mRNChangedHandler}
             />
@@ -232,8 +226,6 @@ const DecisionSupportPage = () => {
                 />
               )}
             </div>
-
-            <div style={{ flexGrow: 5 }} />
           </div>
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
