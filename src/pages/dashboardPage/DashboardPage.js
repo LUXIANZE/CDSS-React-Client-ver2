@@ -1,32 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
-import {
-  BarChart,
-  Bar,
-  CartesianGrid,
-  Legend,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
+import { Legend, Tooltip, PieChart, Pie, Cell } from "recharts";
+import { DataGrid } from "@material-ui/data-grid";
 import Typography from "@material-ui/core/Typography";
 import { gql, useQuery } from "@apollo/client";
 
 import Layout from "../../layout";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
 import { AppContext } from "../../context";
 import { useHistory } from "react-router-dom";
 
@@ -36,6 +15,7 @@ const GET_DECISION_DATA = gql`
       staffId
       isOverride
       reason
+      overridingDecision
       mRNNumber
       decision
     }
@@ -61,12 +41,6 @@ const useStyles = makeStyles({
   },
 });
 
-const data1 = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const RADIAN = Math.PI / 180;
@@ -96,37 +70,19 @@ const renderCustomizedLabel = ({
   );
 };
 
-const data = [
-  { name: "Sunday", uv: 400, pv: 2400, amt: 2400 },
-  { name: "Monday", uv: 300, pv: 2400, amt: 2400 },
-  { name: "Tuesday", uv: 200, pv: 2400, amt: 2400 },
-  { name: "Wednesday", uv: 450, pv: 2400, amt: 2400 },
-  { name: "Thursday", uv: 120, pv: 2400, amt: 2400 },
-  { name: "Friday", uv: 430, pv: 2400, amt: 2400 },
-  { name: "Saturday", uv: 400, pv: 2400, amt: 2400 },
-];
-
-const data3 = [
-  { name: "Sunday", Accepted: 4000, Rejected: 2400, amt: 2400 },
-  { name: "Monday", Accepted: 3000, Rejected: 1398, amt: 2210 },
-  { name: "Tuesday", Accepted: 2000, Rejected: 9800, amt: 2290 },
-  { name: "Wednesday", Accepted: 2780, Rejected: 3908, amt: 2000 },
-  { name: "Thursday", Accepted: 1890, Rejected: 4800, amt: 2181 },
-  { name: "Friday", Accepted: 2390, Rejected: 3800, amt: 2500 },
-  { name: "Saturday", Accepted: 3490, Rejected: 4300, amt: 2100 },
-];
-
 const DashboardPage = () => {
   const context = useContext(AppContext);
   const history = useHistory();
   const classes = useStyles();
   const [overridPie, setOverridePie] = useState([]);
   const { data: returnedDecisionData } = useQuery(GET_DECISION_DATA, {
-    pollInterval: 500,
+    pollInterval: 10000,
   });
+  const [decisionData, setDecisionData] = useState([]);
   const { data: returnedPatientData } = useQuery(GET_PATIENT_DATA, {
-    pollInterval: 500,
+    pollInterval: 10000,
   });
+  const [reportsData, setReportsData] = useState([]);
 
   if (context.user?.role == null || context.user?.role !== "ADMIN") {
     history.push("/decisionsupportpage");
@@ -134,6 +90,8 @@ const DashboardPage = () => {
 
   useEffect(() => {
     setOverridePie(overridePieProcessedData());
+    processDecisionTableData();
+    processSymptomsTableData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [returnedDecisionData]);
 
@@ -157,24 +115,52 @@ const DashboardPage = () => {
     ];
   };
 
+  const processDecisionTableData = () => {
+    if (returnedDecisionData) {
+      let temp_data = [];
+      returnedDecisionData.finalDecisions.forEach((finalDecision, index) => {
+        temp_data.push({ id: index + 1, ...finalDecision });
+      });
+      setDecisionData(temp_data);
+      console.log("temp_data :>> ", temp_data);
+    }
+  };
+
+  const processSymptomsTableData = () => {
+    if (returnedPatientData) {
+      let temp_data = [];
+      returnedPatientData.getReport.forEach((report, index) => {
+        temp_data.push({ id: index + 1, ...report });
+      });
+      setReportsData(temp_data);
+      console.log("temp_data :>> ", temp_data);
+    }
+  };
+
+  const reportsTableColumns = [
+    { field: "id", headerName: "No", width: 80 },
+    { field: "mRNNumber", headerName: "MRN Number", width: 200 },
+    { field: "date", headerName: "Date", width: 200 },
+    { field: "report", headerName: "Symptoms", width: 500 },
+  ];
+
+  const decisionTableColumns = [
+    { field: "id", headerName: "No", width: 80 },
+    { field: "staffId", headerName: "Staff ID", width: 150 },
+    { field: "mRNNumber", headerName: "MRN Number", width: 200 },
+    { field: "decision", headerName: "decision", width: 120 },
+    { field: "isOverride", headerName: "Overridden", width: 120 },
+    {
+      field: "overridingDecision",
+      headerName: "Overriding Decision",
+      width: 200,
+    },
+    { field: "reason", headerName: "Overriding Reason", width: 300 },
+  ];
+
   return (
     <Layout title="Dashboard Page">
       <div className={classes.container}>
-        {/* <div style={{ margin: 50, alignSelf: "center" }}>
-          <Typography variant="h4">Weekly reports count</Typography>
-          <LineChart
-            width={800}
-            height={400}
-            data={data}
-            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-          >
-            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-          </LineChart>
-        </div> */}
         <div style={{ margin: 50, alignSelf: "center" }}>
           <Typography variant="h4">
             Overview of Agreed and Overridden decision
@@ -198,90 +184,28 @@ const DashboardPage = () => {
           </PieChart>
         </div>
 
-        <div
-          style={{
-            margin: 50,
-            alignSelf: "center",
-            minWidth: 800,
-          }}
-        >
-          <Typography variant="h4">
-            Details of Agreed and Overridden decision
-          </Typography>
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">Staff ID</TableCell>
-                  <TableCell align="center">MRN Number</TableCell>
-                  <TableCell align="center">Decision Generated</TableCell>
-                  <TableCell align="center">Overriding Reason</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {returnedDecisionData &&
-                  returnedDecisionData.hasOwnProperty("finalDecisions") &&
-                  returnedDecisionData.finalDecisions.map((row) => (
-                    <TableRow key={row.name}>
-                      <TableCell align="center">{row.staffId}</TableCell>
-                      <TableCell align="center">{row.mRNNumber}</TableCell>
-                      <TableCell align="center">{row.decision}</TableCell>
-                      <TableCell align="center">{row.reason}</TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+        <Typography variant="h4" style={{ margin: "0px 50px" }}>
+          Details of Agreed and Overridden decision
+        </Typography>
+        <div style={{ minHeight: 400, width: "90%", margin: 50 }}>
+          <DataGrid
+            rows={decisionData}
+            columns={decisionTableColumns}
+            pageSize={5}
+            disableSelectionOnClick
+          />
         </div>
 
-        <div
-          style={{
-            margin: 50,
-            alignSelf: "center",
-            minWidth: 800,
-          }}
-        >
-          <Typography variant="h4">Patient Reports</Typography>
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">MRN Number</TableCell>
-                  <TableCell align="center">DATE</TableCell>
-                  <TableCell align="center">SYMPTOMS REPORTED</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {returnedPatientData &&
-                  returnedPatientData.hasOwnProperty("getReport") &&
-                  returnedPatientData.getReport.map((row) => (
-                    <TableRow key={row.name}>
-                      <TableCell align="center">{row.mRNNumber}</TableCell>
-                      <TableCell align="center">{row.date}</TableCell>
-                      <TableCell align="center">{row.report}</TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-
-        <div style={{ margin: 50, alignSelf: "center" }}>
-          <Typography variant="h4">Decision accepted and rejected</Typography>
-          <BarChart
-            width={800}
-            height={500}
-            data={data3}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="Rejected" fill="#8884d8" />
-            <Bar dataKey="Accepted" fill="#82ca9d" />
-          </BarChart>
+        <Typography variant="h4" style={{ margin: "0px 50px" }}>
+          Details of patients reported symptoms
+        </Typography>
+        <div style={{ minHeight: 400, width: "90%", margin: 50 }}>
+          <DataGrid
+            rows={reportsData}
+            columns={reportsTableColumns}
+            pageSize={5}
+            disableSelectionOnClick
+          />
         </div>
       </div>
     </Layout>

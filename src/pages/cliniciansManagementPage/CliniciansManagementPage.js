@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { DataGrid } from "@material-ui/data-grid";
 import Card from "@material-ui/core/Card";
@@ -8,7 +8,6 @@ import { gql, useQuery } from "@apollo/client";
 
 import Layout from "../../layout";
 import { UpdateUserForm } from "./components";
-import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles({
   container: {
