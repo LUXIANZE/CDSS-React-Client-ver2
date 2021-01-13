@@ -29,7 +29,6 @@ const OverrideDecisionForm = (props) => {
 
   const handleOverride = () => {
     if (reason.trim().length === 0) {
-      alert("Invalid Reason");
     } else {
       mutation();
       context.selectPatient(null);
@@ -46,7 +45,9 @@ const OverrideDecisionForm = (props) => {
     >
       <DialogTitle id="form-dialog-title">Override Decision</DialogTitle>
       <DialogContent>
-        <DialogContentText>Overriding Details</DialogContentText>
+        <DialogContentText>
+          Overriding details, pick a new date you would like to override
+        </DialogContentText>
         <FormControl
           variant="outlined"
           style={{ minWidth: 300, width: "100%", margin: "10px 0px" }}
@@ -74,6 +75,10 @@ const OverrideDecisionForm = (props) => {
         </FormControl>
         <TextField
           id="outlined-multiline-static"
+          error={reason.trim() === ""}
+          helperText={
+            reason.trim() === "" ? "Please provide a valid reason" : ""
+          }
           label="Overriding Reason"
           multiline
           rows={5}
