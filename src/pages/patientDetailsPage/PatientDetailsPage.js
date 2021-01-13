@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -55,6 +55,10 @@ function TabPanel(props) {
 }
 
 const PatientDetailsPage = () => {
+  const history = useHistory();
+  const context = useContext(AppContext);
+  const classes = useStyles();
+
   const [
     openUpdateColonoscopyHistory,
     setOpenUpdateColonoscopyHistory,
@@ -78,6 +82,13 @@ const PatientDetailsPage = () => {
     setOpenUpdateSocialAndFamilyHistory,
   ] = useState(false);
 
+  useEffect(() => {
+    if (context.selectedPatient === null) {
+      const raw_patient = localStorage.getItem("CDSS-Selected-Patient");
+      const patient = JSON.parse(raw_patient);
+      context.selectPatient(patient);
+    }
+  });
   // Modal open handler
   const handleOpenUpdateColonoscopyHistory = () => {
     setOpenUpdateColonoscopyHistory(true);
@@ -148,9 +159,6 @@ const PatientDetailsPage = () => {
     setOpenUpdateSocialAndFamilyHistory(false);
   };
 
-  const history = useHistory();
-  const context = useContext(AppContext);
-  const classes = useStyles();
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -740,30 +748,36 @@ const PatientDetailsPage = () => {
           </div>
         </div>
       </div>
-      <UpdateColonoscopyHistory
-        open={openUpdateColonoscopyHistory}
-        handleClose={handleCloseUpdateColonoscopyHistory}
-      />
-      <UpdateEndoscopyReport
-        open={openUpdateEndoscopyReport}
-        handleClose={handleCloseUpdateEndoscopyReport}
-      />
-      <UpdateHistologyReport
-        open={openUpdateHistologyReport}
-        handleClose={handleCloseUpdateHistologyReport}
-      />
-      <UpdatePastMedicalHistory
-        open={openUpdatePastMedicalHistory}
-        handleClose={handleCloseUpdatePastMedicalHistory}
-      />
-      <UpdatePatientDemographics
-        open={openUpdatePatientDemographics}
-        handleClose={handleCloseUpdatePatientDemographics}
-      />
-      <UpdateSocialAndFamilyHistory
-        open={openUpdateSocialAndFamilyHistory}
-        handleClose={handleCloseUpdateSocialAndFamilyHistory}
-      />
+      <>
+        {context.selectedPatient && (
+          <>
+            <UpdateColonoscopyHistory
+              open={openUpdateColonoscopyHistory}
+              handleClose={handleCloseUpdateColonoscopyHistory}
+            />
+            <UpdateEndoscopyReport
+              open={openUpdateEndoscopyReport}
+              handleClose={handleCloseUpdateEndoscopyReport}
+            />
+            <UpdateHistologyReport
+              open={openUpdateHistologyReport}
+              handleClose={handleCloseUpdateHistologyReport}
+            />
+            <UpdatePastMedicalHistory
+              open={openUpdatePastMedicalHistory}
+              handleClose={handleCloseUpdatePastMedicalHistory}
+            />
+            <UpdatePatientDemographics
+              open={openUpdatePatientDemographics}
+              handleClose={handleCloseUpdatePatientDemographics}
+            />
+            <UpdateSocialAndFamilyHistory
+              open={openUpdateSocialAndFamilyHistory}
+              handleClose={handleCloseUpdateSocialAndFamilyHistory}
+            />
+          </>
+        )}
+      </>
     </Layout>
   );
 };

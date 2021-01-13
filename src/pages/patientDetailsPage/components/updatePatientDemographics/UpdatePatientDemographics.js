@@ -121,6 +121,10 @@ const UpdatePatientDemographics = (props) => {
     const { updatePatient } = data;
     if (!updatedPatient) {
       context.selectPatient(updatePatient);
+      localStorage.setItem(
+        "CDSS-Selected-Patient",
+        JSON.stringify(updatePatient)
+      );
       setUpdatedPatient(PatientVariableConverter(updatePatient));
     }
   }

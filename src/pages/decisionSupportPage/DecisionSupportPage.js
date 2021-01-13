@@ -106,6 +106,10 @@ const DecisionSupportPage = () => {
     console.log("returnedPatient :>> ", returnedPatient);
     if (returnedPatient[0] !== null) {
       context.selectPatient(returnedPatient[0]);
+      localStorage.setItem(
+        "CDSS-Selected-Patient",
+        JSON.stringify(returnedPatient[0])
+      );
       history.push("/patientdetailspage");
     }
   };

@@ -68,20 +68,24 @@ const DecisionPage = () => {
   const [finalDecision, setFinalDecision] = useState({});
   const [numberOfPolyps, setNumberOfPolyps] = useState(0);
   const [largestPolypMoreThan10mm, setLargestPolypMoreThan10mm] = useState(
-    context.selectedPatient.endoscopyReport.sizeOfLargestPolyp === ">= 10"
+    JSON.parse(localStorage.getItem("CDSS-Selected-Patient")).endoscopyReport
+      .sizeOfLargestPolyp === ">= 10"
   );
   const [piecemalResection, setPiecemalResection] = useState(
-    context.selectedPatient.endoscopyReport.piecemalResection
+    JSON.parse(localStorage.getItem("CDSS-Selected-Patient")).endoscopyReport
+      .piecemalResection
   );
   const [villousArchitecture, setVillousArchitecture] = useState(
-    context.selectedPatient.histologyReport.villousArchitecture
+    JSON.parse(localStorage.getItem("CDSS-Selected-Patient")).histologyReport
+      .villousArchitecture
   );
   const [highGradeDysplasia, setHighGradeDysplasia] = useState(
-    context.selectedPatient.histologyReport.highGradeDysplasia
+    JSON.parse(localStorage.getItem("CDSS-Selected-Patient")).histologyReport
+      .highGradeDysplasia
   );
   const [answer, setAnswer] = useState([]);
 
-  const [acquireDecision, { data }] = useMutation(ACQUIRE_DECISION, {
+  const [acquireDecision, { data, loading }] = useMutation(ACQUIRE_DECISION, {
     variables: { answer: answer },
   });
   const [submitFinalDecision] = useMutation(FINAL_DECISION, {
@@ -91,10 +95,16 @@ const DecisionPage = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    if (context.selectedPatient === null) {
+      const raw_patient = localStorage.getItem("CDSS-Selected-Patient");
+      const patient = JSON.parse(raw_patient);
+      context.selectPatient(patient);
+    }
     setAnswer(generateAnswerForDecisionEngine());
     setFinalDecision({
-      staffId: context.user.staffId,
-      mRNNumber: context.selectedPatient.mRNNumber,
+      staffId: JSON.parse(localStorage.getItem("user")).staffId,
+      mRNNumber: JSON.parse(localStorage.getItem("CDSS-Selected-Patient"))
+        .mRNNumber,
       decision: result,
       overridingDecision: reason.trim() === "" ? "" : nextVisit,
       isOverride: reason !== "",
@@ -109,6 +119,7 @@ const DecisionPage = () => {
     highGradeDysplasia,
     result,
     reason,
+    context,
   ]);
 
   const generateAnswerForDecisionEngine = () => {
@@ -156,14 +167,28 @@ const DecisionPage = () => {
     acquireDecision();
   };
   const handleAgreeClicked = () => {
-    submitFinalDecision().catch((error) => {
-      console.log("error :>> ", error);
-    });
-    context.selectPatient(null);
-    history.push("./decisionsupportpage");
+    if (result.trim() !== "") {
+      submitFinalDecision().catch((error) => {
+        console.log("error :>> ", error);
+      });
+      context.selectPatient(null);
+      localStorage.removeItem("CDSS-Selected-Patient");
+      history.push("./decisionsupportpage");
+    } else {
+      alert("Please acquire decision before proceeding");
+    }
   };
   const handleOverrideClicked = () => {
-    setOpen(true);
+    if (result.trim() !== "") {
+      setOpen(true);
+    } else {
+      alert("Please acquire decision before proceeding");
+    }
+  };
+  const handleAbortClicked = () => {
+    context.selectPatient(null);
+    localStorage.removeItem("CDSS-Selected-Patient");
+    history.push("./decisionsupportpage");
   };
   const handleClose = () => {
     setOpen(false);
@@ -290,7 +315,11 @@ const DecisionPage = () => {
                 multiline
                 rows={2}
                 variant="outlined"
-                value={result}
+                value={
+                  loading
+                    ? "Generating decision from Decision Engine, please wait patiently"
+                    : result
+                }
                 style={{ margin: "10px 0px" }}
               />
             </div>
@@ -301,6 +330,7 @@ const DecisionPage = () => {
                   color="secondary"
                   style={{
                     margin: "0px 10px",
+                    padding: "6px 16px",
                     backgroundColor: "#25C8C8",
                     color: "#FFFFFF",
                   }}
@@ -310,13 +340,28 @@ const DecisionPage = () => {
                 </Button>
                 <Button
                   variant="contained"
-                  style={{ backgroundColor: "#FF8888", color: "white" }}
+                  style={{
+                    backgroundColor: "#FF8888",
+                    padding: "6px 16px",
+                    color: "white",
+                  }}
                   color="primary"
                   onClick={handleOverrideClicked}
                 >
                   OVERRIDE
                 </Button>
               </MuiThemeProvider>
+              <Button
+                style={{
+                  margin: "0px 10px",
+                  padding: "6px 16px",
+                  backgroundColor: "#686D75",
+                  color: "#FFFFFF",
+                }}
+                onClick={handleAbortClicked}
+              >
+                ABORT TRANSACTION
+              </Button>
             </div>
           </Form>
         </div>

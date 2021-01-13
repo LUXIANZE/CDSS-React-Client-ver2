@@ -33,6 +33,7 @@ const OverrideDecisionForm = (props) => {
     } else {
       mutation();
       context.selectPatient(null);
+      localStorage.removeItem("CDSS-Selected-Patient");
       history.push("./decisionsupportpage");
     }
   };

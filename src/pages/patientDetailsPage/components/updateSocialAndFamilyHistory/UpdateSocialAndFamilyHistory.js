@@ -4,6 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import {
   Button,
   FormControl,
@@ -71,6 +72,10 @@ const UpdateSocialAndFamilyHistory = (props) => {
     const { updatePatient } = data;
     if (!updatedPatient) {
       context.selectPatient(updatePatient);
+      localStorage.setItem(
+        "CDSS-Selected-Patient",
+        JSON.stringify(updatePatient)
+      );
       setUpdatedPatient(PatientVariableConverter(updatePatient));
     }
   }
@@ -87,6 +92,7 @@ const UpdateSocialAndFamilyHistory = (props) => {
         <FormControl
           variant="outlined"
           style={{ minWidth: 300, width: "100%", margin: 10 }}
+          error={inputIsSmoker === null}
         >
           <InputLabel id="demo-simple-select-outlined-label">Smoker</InputLabel>
           <Select
@@ -106,10 +112,14 @@ const UpdateSocialAndFamilyHistory = (props) => {
             <MenuItem value="Current">Current</MenuItem>
             <MenuItem value="Unknown">Unknown</MenuItem>
           </Select>
+          <FormHelperText>
+            {inputIsSmoker === null ? "Please select an option" : ""}
+          </FormHelperText>
         </FormControl>
         <FormControl
           variant="outlined"
           style={{ minWidth: 300, width: "100%", margin: 10 }}
+          error={inputAlcoholConsumption === null}
         >
           <InputLabel id="demo-simple-select-outlined-label">
             Alcohol Consumption
@@ -131,10 +141,14 @@ const UpdateSocialAndFamilyHistory = (props) => {
             <MenuItem value="Tee-total">Tee-total</MenuItem>
             <MenuItem value="Unknown">Unknown</MenuItem>
           </Select>
+          <FormHelperText>
+            {inputAlcoholConsumption === null ? "Please select an option" : ""}
+          </FormHelperText>
         </FormControl>
         <FormControl
           variant="outlined"
           style={{ minWidth: 300, width: "100%", margin: 10 }}
+          error={inputFamilyCRCHistory === null}
         >
           <InputLabel id="demo-simple-select-outlined-label">
             Family History of CRC
@@ -155,6 +169,9 @@ const UpdateSocialAndFamilyHistory = (props) => {
             <MenuItem value="No">No</MenuItem>
             <MenuItem value="Unknown">Unknown</MenuItem>
           </Select>
+          <FormHelperText>
+            {inputFamilyCRCHistory === null ? "Please select an option" : ""}
+          </FormHelperText>
         </FormControl>
       </DialogContent>
       <DialogActions>
