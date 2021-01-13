@@ -94,6 +94,10 @@ const DecisionPage = () => {
   });
   const [nextVisit, setNextVisit] = useState("3 Months");
   const [open, setOpen] = useState(false);
+  const [noOfPolypsError, setNoOfPolypsError] = useState({
+    isError: false,
+    errorText: "",
+  });
 
   useEffect(() => {
     if (context.selectedPatient === null) {
@@ -111,6 +115,8 @@ const DecisionPage = () => {
       isOverride: reason !== "",
       reason: reason,
     });
+
+    updateNoOfPolypsError();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     numberOfPolyps,
@@ -122,6 +128,25 @@ const DecisionPage = () => {
     reason,
     context,
   ]);
+
+  const updateNoOfPolypsError = () => {
+    if (numberOfPolyps.trim() === "") {
+      setNoOfPolypsError({
+        isError: true,
+        errorText: "Please provide number of polyps",
+      });
+    } else if (numberOfPolyps < 0) {
+      setNoOfPolypsError({
+        isError: true,
+        errorText: "No of polyps must be at least 0",
+      });
+    } else {
+      setNoOfPolypsError({
+        isError: false,
+        errorText: "",
+      });
+    }
+  };
 
   const generateAnswerForDecisionEngine = () => {
     let answer = [];
@@ -176,14 +201,18 @@ const DecisionPage = () => {
       localStorage.removeItem("CDSS-Selected-Patient");
       history.push("./decisionsupportpage");
     } else {
-      alert("Please acquire decision before proceeding");
+      alert(
+        "Please acquire decision by clicking on CONFIRM button before proceeding"
+      );
     }
   };
   const handleOverrideClicked = () => {
     if (result.trim() !== "") {
       setOpen(true);
     } else {
-      alert("Please acquire decision before proceeding");
+      alert(
+        "Please acquire decision by clicking on CONFIRM button before proceeding"
+      );
     }
   };
   const handleAbortClicked = () => {
@@ -226,12 +255,17 @@ const DecisionPage = () => {
                 • Please update the number of polyps manually as it is unable to
                 be extracted from provided report.
               </Typography>
+              <Typography>
+                • After filling in required parameters, click on CONFIRM button
+              </Typography>
             </CardContent>
           </Card>
           <Form title="Decision Support Questions">
             <div style={{ display: "flex", flexDirection: "column" }}>
               <TextField
-                style={{ width: 500 }}
+                error={noOfPolypsError.isError}
+                helperText={noOfPolypsError.errorText}
+                style={{ width: 500, minHeight: 80 }}
                 variant="outlined"
                 type="number"
                 label="Number of Polyps"
