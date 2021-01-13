@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -89,6 +89,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     margin: "50px 0px",
+    minHeight: 80,
   },
 });
 
@@ -101,6 +102,26 @@ const DecisionSupportPage = () => {
   const [searchpatient, { loading, data }] = useLazyQuery(GET_PATIENT, {
     variables: { MRNNumber: patientMRNNumber },
   });
+  const [searchError, setSearchError] = useState({
+    isError: false,
+    errorText: "",
+  });
+
+  useEffect(() => {
+    if (patientMRNNumber.trim() === "") {
+      const searchError = {
+        isError: true,
+        errorText: "Please key in MRN Number to proceed",
+      };
+      setSearchError(searchError);
+    } else {
+      const searchError = {
+        isError: false,
+        errorText: "",
+      };
+      setSearchError(searchError);
+    }
+  }, [patientMRNNumber]);
 
   const patientClicked = () => {
     console.log("returnedPatient :>> ", returnedPatient);
@@ -167,13 +188,19 @@ const DecisionSupportPage = () => {
           </Card>
           <div className={classes.input}>
             <TextField
+              error={searchError.isError}
+              helperText={searchError.errorText}
               variant="outlined"
-              style={{ flexGrow: 4 }}
+              style={{ alignSelf: "start", minWidth: 500 }}
               onChange={mRNChangedHandler}
-            ></TextField>
+            />
             <Button
               onClick={onSearchClicked}
-              style={{ flexGrow: 1, marginLeft: 10 }}
+              style={{
+                marginLeft: 10,
+                alignSelf: "start",
+                padding: "15px 16px",
+              }}
               variant="contained"
             >
               SEARCH
