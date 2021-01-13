@@ -5,6 +5,7 @@ import {
   createMuiTheme,
 } from "@material-ui/core/styles";
 import grey from "@material-ui/core/colors/grey";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import Divider from "@material-ui/core/Divider";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -322,6 +323,9 @@ const DecisionPage = () => {
                 }
                 style={{ margin: "10px 0px" }}
               />
+              <div style={{ height: 10, margin: 10 }}>
+                {loading && <LinearProgress />}
+              </div>
             </div>
             <div style={{ display: "flex" }}>
               <MuiThemeProvider theme={custom_theme}>

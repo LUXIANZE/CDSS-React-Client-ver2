@@ -20,7 +20,6 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import { useMutation } from "@apollo/client";
-import { Document } from "react-pdf";
 
 import { AppContext } from "../../../../context";
 import { UPDATE_PATIENT } from "../../../../utils/graphql/UpdatePatient";

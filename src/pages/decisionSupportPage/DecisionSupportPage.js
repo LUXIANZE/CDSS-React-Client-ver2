@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -91,6 +92,18 @@ const useStyles = makeStyles({
     margin: "50px 0px",
     minHeight: 80,
   },
+  wrapper: {
+    position: "relative",
+    marginLeft: 10,
+    alignSelf: "start",
+  },
+  buttonProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -12,
+    marginLeft: -12,
+  },
 });
 
 const DecisionSupportPage = () => {
@@ -99,7 +112,7 @@ const DecisionSupportPage = () => {
   const classes = useStyles();
   const [returnedPatient, setReturnedPatient] = useState(null);
   const [patientMRNNumber, setPatientMRNNumber] = useState("");
-  const [searchpatient, { loading, data }] = useLazyQuery(GET_PATIENT, {
+  const [searchpatient, { loading, data, error }] = useLazyQuery(GET_PATIENT, {
     variables: { MRNNumber: patientMRNNumber },
   });
   const [searchError, setSearchError] = useState({
@@ -144,10 +157,17 @@ const DecisionSupportPage = () => {
     setPatientMRNNumber(event.target.value);
   };
 
-  if (loading) {
+  if (error) {
+    console.log("error :>> ", error);
   }
   if (data) {
     const { patient } = data;
+    if (patient === null && !searchError.isError) {
+      setSearchError({
+        isError: true,
+        errorText: "Invalid MRN Number",
+      });
+    }
     if (!returnedPatient) setReturnedPatient([patient]);
   }
 
@@ -194,17 +214,25 @@ const DecisionSupportPage = () => {
               style={{ alignSelf: "start", minWidth: 500 }}
               onChange={mRNChangedHandler}
             />
-            <Button
-              onClick={onSearchClicked}
-              style={{
-                marginLeft: 10,
-                alignSelf: "start",
-                padding: "15px 16px",
-              }}
-              variant="contained"
-            >
-              SEARCH
-            </Button>
+            <div className={classes.wrapper}>
+              <Button
+                onClick={onSearchClicked}
+                style={{
+                  padding: "15px 16px",
+                }}
+                disabled={loading}
+                variant="contained"
+              >
+                SEARCH
+              </Button>
+              {loading && (
+                <CircularProgress
+                  size={24}
+                  className={classes.buttonProgress}
+                />
+              )}
+            </div>
+
             <div style={{ flexGrow: 5 }} />
           </div>
           <TableContainer component={Paper}>
