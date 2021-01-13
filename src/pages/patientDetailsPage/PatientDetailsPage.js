@@ -719,32 +719,45 @@ const PatientDetailsPage = () => {
             )}
           </TabPanel>
           <div
-            style={{ display: "flex", flexDirection: "column", padding: 50 }}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              padding: 50,
+              flexGrow: 1,
+            }}
           >
-            <Button
-              variant="contained"
-              color="secondary"
+            <div style={{ display: "flex", flexDirection: "row", flexGrow: 1 }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{
+                  backgroundColor: "#25C8C8",
+                  color: "#FFFFFF",
+                }}
+                onClick={previousBtnHandler}
+              >
+                Previous
+              </Button>
+            </div>
+            <div
               style={{
-                alignSelf: "flex-start",
-                backgroundColor: "#25C8C8",
-                color: "#FFFFFF",
+                display: "flex",
+                flexDirection: "row-reverse",
+                flexGrow: 1,
               }}
-              onClick={previousBtnHandler}
             >
-              Previous
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              style={{
-                alignSelf: "flex-end",
-                backgroundColor: "#25C8C8",
-                color: "#FFFFFF",
-              }}
-              onClick={nextBtnHandler}
-            >
-              Next
-            </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{
+                  backgroundColor: "#25C8C8",
+                  color: "#FFFFFF",
+                }}
+                onClick={nextBtnHandler}
+              >
+                Next
+              </Button>
+            </div>
           </div>
         </div>
       </div>
