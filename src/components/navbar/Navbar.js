@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     maxWidth: 300,
+    backgroundImage:
+      "radial-gradient(circle, #d4fbfb, #c4fafa, #b3f8f8, #a0f7f7, #8cf5f5)",
     backgroundColor: "#B6E4E7",
     padding: 0,
     boxShadow: "5px 14px 17px 10px rgba(0,0,0,0.25)",

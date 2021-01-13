@@ -17,6 +17,8 @@ const useStyles = makeStyles({
   appbarcontainerStyle: {
     height: "110px",
     backgroundColor: "#25C8C8",
+    backgroundImage:
+      "radial-gradient(circle, #9feaea, #82d5d5, #64c1c1, #42adad, #0d9999)",
     color: "white",
     display: "flex",
     boxShadow: "0px 12px 14px 5px rgba(0, 0, 0, 0.25)",
