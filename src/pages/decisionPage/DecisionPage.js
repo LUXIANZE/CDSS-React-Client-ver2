@@ -358,6 +358,7 @@ const DecisionPage = () => {
                   backgroundColor: "#686D75",
                   color: "#FFFFFF",
                 }}
+                variant="contained"
                 onClick={handleAbortClicked}
               >
                 ABORT TRANSACTION

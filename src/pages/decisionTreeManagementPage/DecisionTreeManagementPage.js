@@ -87,7 +87,7 @@ const DecisionTreeManagementPage = () => {
               <Card
                 className={classes.instructions}
                 raised
-                style={{ height: "auto", maxWidth: 600 }}
+                style={{ height: "auto", maxWidth: 500 }}
               >
                 <CardContent>
                   <Typography
@@ -117,10 +117,12 @@ const DecisionTreeManagementPage = () => {
               </Card>
               <div style={{ flexGrow: 1, margin: "20px 0px" }}>
                 <Button
+                  variant="contained"
                   style={{
                     backgroundColor: "#25C8C8",
                     color: "#FFFFFF",
                     alignSelf: "center",
+                    padding: "6px 16px",
                   }}
                   onClick={handleUpdateTreeClicked}
                 >
