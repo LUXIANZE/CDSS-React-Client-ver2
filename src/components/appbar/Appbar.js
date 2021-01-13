@@ -74,6 +74,7 @@ const Appbar = (props) => {
                 padding: "14px 34px",
                 margin: 15,
               }}
+              variant="contained"
               onClick={handleLogout}
               startIcon={<ExitToAppRoundedIcon />}
             >
