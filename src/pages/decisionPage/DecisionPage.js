@@ -67,7 +67,7 @@ const DecisionPage = () => {
   const [result, setResult] = useState("");
   const [reason, setReason] = useState("");
   const [finalDecision, setFinalDecision] = useState({});
-  const [numberOfPolyps, setNumberOfPolyps] = useState(0);
+  const [numberOfPolyps, setNumberOfPolyps] = useState("0");
   const [largestPolypMoreThan10mm, setLargestPolypMoreThan10mm] = useState(
     JSON.parse(localStorage.getItem("CDSS-Selected-Patient")).endoscopyReport
       .sizeOfLargestPolyp === ">= 10"
