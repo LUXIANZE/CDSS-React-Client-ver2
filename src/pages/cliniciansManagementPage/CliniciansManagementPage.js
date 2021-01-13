@@ -20,6 +20,7 @@ const useStyles = makeStyles({
   instructions: {
     borderRadius: 15,
     padding: 20,
+    height: "fit-content",
   },
 });
 
@@ -79,42 +80,44 @@ const CliniciansManagementPage = () => {
   return (
     <Layout title="Clinicians Management Page">
       <div className={classes.container}>
-        <Card className={classes.instructions} raised>
-          <CardContent>
-            <Typography
-              component="h4"
-              variant="h4"
-              style={{ fontWeight: "bold" }}
-            >
-              Instructions
-            </Typography>
-            <Typography>
-              • Please click on edit button to edit clinician's role
-            </Typography>
-            <Typography>
-              • After changing your own role to a role lower than ADMIN will
-              cause you to unable to access this module after changes took
-              effect
-            </Typography>
-          </CardContent>
-        </Card>
-        <br />
-        <div style={{ height: 400, width: "100%" }}>
-          {users && (
-            <>
-              {loading ? (
-                <div>loading</div>
-              ) : (
-                <DataGrid
-                  rows={users}
-                  columns={columns}
-                  pageSize={5}
-                  onRowClick={handleOnRowClicked}
-                  disableSelectionOnClick
-                />
-              )}
-            </>
-          )}
+        <div style={{ height: "fit-content" }}>
+          <Card className={classes.instructions} raised>
+            <CardContent>
+              <Typography
+                component="h4"
+                variant="h4"
+                style={{ fontWeight: "bold" }}
+              >
+                Instructions
+              </Typography>
+              <Typography>
+                • Please click on edit button to edit clinician's role
+              </Typography>
+              <Typography>
+                • After changing your own role to a role lower than ADMIN will
+                cause you to unable to access this module after changes took
+                effect
+              </Typography>
+            </CardContent>
+          </Card>
+          <br />
+          <div style={{ height: 400, width: "100%" }}>
+            {users && (
+              <>
+                {loading ? (
+                  <div>loading</div>
+                ) : (
+                  <DataGrid
+                    rows={users}
+                    columns={columns}
+                    pageSize={5}
+                    onRowClick={handleOnRowClicked}
+                    disableSelectionOnClick
+                  />
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
 
