@@ -54,6 +54,10 @@ const UpdatePatientDemographics = (props) => {
   const [updatePatientMutation, { data, error }] = useMutation(UPDATE_PATIENT, {
     variables: { UpdatePatientInput: updatedPatient },
   });
+  const [icError, setICError] = useState({
+    errorState: false,
+    errorText: "",
+  });
 
   useEffect(() => {
     let temp_updatedPatient = PatientVariableConverter(context.selectedPatient);
@@ -75,6 +79,31 @@ const UpdatePatientDemographics = (props) => {
     inputBMI,
     inputIc,
   ]);
+
+  /**
+   * If the length > 9, check IC validity
+   * - IC must be 14 characters
+   *
+   * If the length < 9, check PASSPORT validity
+   * - PASSPORT must be between 6-9 characters
+   * @param {String} value
+   */
+  const icErrorPreprocessor = (value) => {
+    let isError = false;
+    if (value.length > 9) {
+      isError = value.length !== 14;
+      setICError({
+        errorState: isError,
+        errorText: isError ? "Invalid IC Number" : "",
+      });
+    } else {
+      isError = value.length < 6 || value.length > 9;
+      setICError({
+        errorState: isError,
+        errorText: isError ? "Invalid PASSPORT Number" : "",
+      });
+    }
+  };
 
   const handleSave = () => {
     updatePatientMutation().catch((e) => {
@@ -116,12 +145,15 @@ const UpdatePatientDemographics = (props) => {
           }}
         />
         <TextField
+          error={icError.errorState}
+          helperText={icError.errorText}
           autoFocus
           margin="dense"
           label="IC/PASSPORT"
           fullWidth
           value={inputIc}
           onChange={(event) => {
+            icErrorPreprocessor(event.target.value);
             setInputIc(event.target.value);
           }}
         />
@@ -164,6 +196,10 @@ const UpdatePatientDemographics = (props) => {
           }}
         />
         <TextField
+          error={parseFloat(inputBMI) < 0}
+          helperText={
+            parseFloat(inputBMI) < 0 ? "BMI must be greater than 0" : ""
+          }
           autoFocus
           margin="dense"
           label="BMI"
