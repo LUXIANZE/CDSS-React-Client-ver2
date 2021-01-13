@@ -18,6 +18,7 @@ import { Button, TextField } from "@material-ui/core";
 import Layout from "../../layout";
 import { Form } from "../../components";
 import { AppContext } from "../../context";
+import OverrideDecisionForm from "./components/overrideDecisionForm/OverrideDecisionForm";
 
 const ACQUIRE_DECISION = gql`
   mutation GenerateDecision($answer: [String!]) {
@@ -86,6 +87,8 @@ const DecisionPage = () => {
   const [submitFinalDecision] = useMutation(FINAL_DECISION, {
     variables: { finalDecision: finalDecision },
   });
+  const [nextVisit, setNextVisit] = useState("3 Months");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setAnswer(generateAnswerForDecisionEngine());
@@ -93,6 +96,7 @@ const DecisionPage = () => {
       staffId: context.user.staffId,
       mRNNumber: context.selectedPatient.mRNNumber,
       decision: result,
+      overridingDecision: reason.trim() === "" ? "" : nextVisit,
       isOverride: reason !== "",
       reason: reason,
     });
@@ -152,18 +156,17 @@ const DecisionPage = () => {
     acquireDecision();
   };
   const handleAgreeClicked = () => {
-    submitFinalDecision().catch();
+    submitFinalDecision().catch((error) => {
+      console.log("error :>> ", error);
+    });
     context.selectPatient(null);
     history.push("./decisionsupportpage");
   };
   const handleOverrideClicked = () => {
-    if (reason === "") {
-      alert("No valid reason provided");
-    } else {
-      submitFinalDecision().catch();
-      context.selectPatient(null);
-      history.push("./decisionsupportpage");
-    }
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   if (data) {
@@ -290,18 +293,6 @@ const DecisionPage = () => {
                 value={result}
                 style={{ margin: "10px 0px" }}
               />
-              <TextField
-                id="outlined-multiline-static"
-                label="Overriding Reason"
-                multiline
-                rows={5}
-                variant="outlined"
-                value={reason}
-                onChange={(event) => {
-                  setReason(event.target.value);
-                }}
-                style={{ margin: "10px 0px" }}
-              />
             </div>
             <div style={{ display: "flex" }}>
               <MuiThemeProvider theme={custom_theme}>
@@ -330,6 +321,15 @@ const DecisionPage = () => {
           </Form>
         </div>
       </div>
+      <OverrideDecisionForm
+        handleClose={handleClose}
+        open={open}
+        reason={reason}
+        setReason={setReason}
+        mutation={submitFinalDecision}
+        nextVisit={nextVisit}
+        setNextVisit={setNextVisit}
+      />
     </Layout>
   );
 };
