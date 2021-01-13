@@ -4,9 +4,10 @@ import { Legend, Tooltip, PieChart, Pie, Cell } from "recharts";
 import { DataGrid } from "@material-ui/data-grid";
 import Typography from "@material-ui/core/Typography";
 import { gql, useQuery } from "@apollo/client";
+import { useHistory } from "react-router-dom";
+import Card from "@material-ui/core/Card";
 
 import Layout from "../../layout";
-import { useHistory } from "react-router-dom";
 
 const GET_DECISION_DATA = gql`
   query {
@@ -158,28 +159,33 @@ const DashboardPage = () => {
   return (
     <Layout title="Dashboard Page">
       <div className={classes.container}>
-        <div style={{ margin: 50, alignSelf: "center" }}>
+        <div style={{ margin: 50 }}>
           <Typography variant="h4">
             Overview of Agreed and Overridden decision
           </Typography>
-          <PieChart width={800} height={400}>
-            <Pie
-              data={overridPie}
-              dataKey="value"
-              cx={300}
-              cy={200}
-              labelLine={false}
-              label={renderCustomizedLabel}
-              outerRadius={150}
-              fill="#8884d8"
-            >
-              {overridPie.map((entry, index) => (
-                <Cell fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
+          <div style={{ display: "flex" }}>
+            <PieChart width={650} height={400}>
+              <Pie
+                data={overridPie}
+                dataKey="value"
+                cx={300}
+                cy={200}
+                labelLine={false}
+                label={renderCustomizedLabel}
+                outerRadius={150}
+                fill="#8884d8"
+              >
+                {overridPie.map((entry, index) => (
+                  <Cell fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+            {/* <Card raised style={{ borderRadius: 30, padding: 30 }}>
+              Hello
+            </Card> */}
+          </div>
         </div>
 
         <Typography variant="h4" style={{ margin: "0px 50px" }}>
