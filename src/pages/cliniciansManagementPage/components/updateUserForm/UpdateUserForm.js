@@ -6,6 +6,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -46,10 +47,12 @@ const UpdateUserForm = (props) => {
   }
 
   const handleSave = () => {
-    updateUser().catch((error) => {
-      console.log("error :>> ", error);
-    });
-    handleClose();
+    if (role) {
+      updateUser().catch((error) => {
+        console.log("error :>> ", error);
+      });
+      handleClose();
+    }
   };
 
   return (
@@ -64,6 +67,7 @@ const UpdateUserForm = (props) => {
         <FormControl
           variant="outlined"
           style={{ minWidth: 300, width: "100%", margin: "10px 0px" }}
+          error={role === null}
         >
           <InputLabel id="demo-simple-select-outlined-label">Role</InputLabel>
           <Select
@@ -81,6 +85,7 @@ const UpdateUserForm = (props) => {
             <MenuItem value="ADMIN">Admin Role</MenuItem>
             <MenuItem value="BASE">Basic Role</MenuItem>
           </Select>
+          <FormHelperText>No Role Selected</FormHelperText>
         </FormControl>
       </DialogContent>
       <DialogActions>
