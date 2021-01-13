@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
 import { Button, Typography } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import { useHistory } from "react-router-dom";
 
 import { AppContext } from "../../context";
@@ -74,6 +75,7 @@ const Appbar = (props) => {
                 margin: 15,
               }}
               onClick={handleLogout}
+              startIcon={<ExitToAppRoundedIcon />}
             >
               Logout
             </Button>
